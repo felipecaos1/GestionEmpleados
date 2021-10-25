@@ -1,0 +1,28 @@
+.contanerdorInformacion{
+    height: 70%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+
+.contanerdorInformacion h4{
+    margin-bottom: 50px;
+} 
+.contanerdorInformacion form{
+    display: grid;
+    grid-template-rows:repeat(6, 1fr);
+    grid-template-columns: .5fr 1.5fr .5fr 1.5fr;
+    width: 90%;
+    height: 100%;
+    row-gap: 20px;
+    column-gap: 10px;
+}
+.contanerdorInformacion form > label{
+    align-self: center;
+    font-weight: bold;
+}
+.contanerdorInformacion form > input{
+width: 80%;
+}

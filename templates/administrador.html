@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administracion</title>
+    <script src="https://kit.fontawesome.com/dc694244d4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/css/StyleAdmi.css">
+    <link rel="stylesheet" href="/static/css/styleCrearEmpleado.css">
+    <link rel="stylesheet" href="/static/css/styleRetroali.css">
+    <link rel="stylesheet" href="/static/css/listaEmpleados.css">
+</head>
+<body>
+    <header>
+        <nav class="navegacion">
+            <h2 class="titulo">SGE</h2>
+            {% if tipo_user==1 %}
+                <p style="font-weight: bold;">
+                    Empleado
+                </p>
+            {% elif tipo_user==2 %}
+                <p style="font-weight: bold;">
+                    Administrador
+                </p>
+            {% elif tipo_user==3 %}
+                <p style="font-weight: bold;">
+                    SuperAdmisitrador
+                </p>
+            {% endif %}
+
+            <form action="/salir" method="POST">
+                {{ csrf_token }}
+                <input id="salir" type="submit" value="salir">
+            </form>
+            
+        </nav>
+        <div class="div-buscar">
+            {% if tipo_user!=1 %}
+            <form action="/buscar_empleado" method="POST">
+                {{ csrf_token }}
+                <input type="text" placeholder="Buscar" name="buscar">
+                <input type="submit" value="Buscar" class="btn">
+            </form>
+
+            {% endif %}
+        </div>
+    </header>
+        <div class="titulo-2">
+            <h2>
+                Sistema de Gestion de Empleados
+            </h2>
+        </div>
+        <div class="container-principal">
+            <div class="opciones">
+                <div class="div-nombre">
+                    <h2>
+                        {{ nombre }}
+                    </h2>
+                </div>
+                
+                <div class="foto">
+                    <img src="/static/img/bcdf1dc5c5f2d1b6665f7f3ea8740ec7.jpg" alt="">
+                </div>
+                <div class="lista-opciones">
+                    <ul>
+                        <li class="item"><a href="/e_informacionpersonal/{{id_user}}">Ver Información</a></li>
+                        <li class="item"><a href="/e_retroalimentación/{{id_user}}">Ver Retroalimentacion</a></li>
+                        {% if tipo_user!=1 %}
+                        <li class="item"><a href="/lista-empleados">Lista de Empleados</a></li>
+                        {% endif %}
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="carga-info">
+                {% if tipo_user!=1 %}
+                <button id="crearEmpleado">Crear empleado</button>
+               
+                {% else %}
+                
+                {% endif %}
+
+                {% block contenido %}
+                {% endblock %} 
+            </div>
+        </div>
+
+        <section id="modal-crear-empleado" class="modal-crear-empleado" >
+            <div class="ventana-crear-empleado">
+                <div class="div-title">
+                    <h1>Crear Empleado</h1>
+                </div>
+                <form action="/crear_empleado" class="form-grid" method="POST">
+                    {{ csrf_token }}
+                    <div class="col-1">
+                        <div class="pares-datos">
+                            <label for="">Nombre</label>
+                            <input type="text" name="crear-nombre">
+                        </div>
+                        <div class="pares-datos">
+                            <label for="">Apellido</label>
+                            <input type="text" name="crear-apellido">
+                        </div>
+                        <div class="pares-datos">
+                            <label for="">Cedula</label>
+                            <input type="text" name="crear-cedula">
+                        </div>
+                        <div class="pares-datos">
+                            <label for="">Usuario</label>
+                            <input type="text" name="crear-usuario">
+                        </div>
+                        <div class="pares-datos">
+                            <label for="">Contraseña</label>
+                            <input type="password" name="crear-contraseña">
+                        </div>
+                        <div class="pares-datos">
+                            <label for="">Fecha de ingreso</label>
+                            <input type="date" name="crear-fecha-ingreso">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="pares-datos">
+                            <label for="">Fecha de Termino</label>
+                            <input type="date" name="crear-fecha-ingreso">
+                        </div>
+                        <div class="pares-datos">
+                            <label for="">Tipo de contrato</label>
+                            <select name="tipo-contrato" >
+                                <option value="nada">Seleccione una opcion</option>
+                                <option value="Pservicios">Prestacion de servicios</option>
+                                <option value="indefinido">Indefinido</option>
+                            </select>
+                        </div>
+                        <div class="pares-datos">
+                            <label for="">Cargo</label>
+                            <select name="tipo-rol" >
+                                <option value="nada">Seleccione una opcion</option>
+                                {% if tipo_user==3 %}
+                                <option value="Superadministrador">Superadministrador</option>
+                                <option value="administrador">Administrador</option>
+                                {% endif %}
+                                <option value="empleado">Empleado</option>
+                            </select>
+                        </div>
+                        <div class="pares-datos">
+                            <label for="">Salaro</label>
+                            <input type="text" name="crear-salario">
+                        </div>
+                        <div class="pares-datos">
+                            <label for="">Dependencia</label>
+                            <input type="text" name="crear-dependencia">
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="botones-finales">
+        
+                        <input type="submit" value="Guardar" class="btn-guardar">
+                        <input type="reset" value="Cancelar" class="btn-cancelar" id="cancelar-ventana-crear">
+        
+                    </div>
+                </form>
+            </div>
+
+        </section>
+
+        
+    
+    <script src="/static/js/modales.js"></script>
+    <script src="/static/js/modalRetroalimentacion.js"></script>
+    
+</body>
+</html>

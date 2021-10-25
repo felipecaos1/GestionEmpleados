@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Empleado</title>
+    <link rel="stylesheet" href="styleCrearEmpleado.css">
+</head>
+<body>
+    <div class="ventana-crear-empleado">
+        <div class="div-title">
+            <h1>Crear Empleado</h1>
+        </div>
+        <form action="" class="form-grid">
+            <div class="col-1">
+                <div class="pares-datos">
+                    <label for="">Nombre</label>
+                    <input type="text" name="crear-nombre">
+                </div>
+                <div class="pares-datos">
+                    <label for="">Apellido</label>
+                    <input type="text" name="crear-apellido">
+                </div>
+                <div class="pares-datos">
+                    <label for="">Cedula</label>
+                    <input type="text" name="crear-cedula">
+                </div>
+                <div class="pares-datos">
+                    <label for="">Usuario</label>
+                    <input type="text" name="crear-usuario">
+                </div>
+                <div class="pares-datos">
+                    <label for="">Contraseña</label>
+                    <input type="password" name="crear-contraseña">
+                </div>
+                <div class="pares-datos">
+                    <label for="">Fecha de ingreso</label>
+                    <input type="date" name="crear-fecha-ingreso">
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="pares-datos">
+                    <label for="">Fecha de Termino</label>
+                    <input type="date" name="crear-fecha-ingreso">
+                </div>
+                <div class="pares-datos">
+                    <label for="">Tipo de contrato</label>
+                    <select name="tipo-contrato" id="">
+                        <option value="nada">Seleccione una opcion</option>
+                        <option value="Pservicios">Prestacion de servicios</option>
+                        <option value="indefinido">Indefinido</option>
+                    </select>
+                </div>
+                <div class="pares-datos">
+                    <label for="">Cargo</label>
+                    <select name="tipo-contrato" id="">
+                        <option value="nada">Seleccione una opcion</option>
+                        <option value="Ssuperadministrador">Superadministrador</option>
+                        <option value="administrador">Administrador</option>
+                        <option value="empleado">Empleado</option>
+                    </select>
+                </div>
+                <div class="pares-datos">
+                    <label for="">Salaro</label>
+                    <input type="text" name="crear-salario">
+                </div>
+                <div class="pares-datos">
+                    <label for="">Dependencia</label>
+                    <input type="text" name="crear-dependencia">
+                </div>
+            </div>
+            
+           
+            <div class="botones-finales">
+
+                <input type="button" value="Guardar" class="btn-guardar">
+                <input type="button" value="Cancelar" class="btn-cancelar">
+
+            </div>
+        </form>
+    </div>
+</body>
+</html>

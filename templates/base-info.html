@@ -1,0 +1,37 @@
+{% extends 'administrador.html' %}
+
+<body>
+    {% block contenido %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/estilosInformacionEmpleado.css')}}">
+    <div class=contanerdorInformacion>
+        <h4 class="titulo_dash">INFORMACIÓN PERSONAL</h4>
+        <form action="" method="">
+            <label for="">Nombre</label>
+            <input type="text" class='estilosGeneralInputs' value="{{ nombre }}" name='Nombre' readonly="readonly">
+            <label for="">Apellido</label>
+            <input type="text" class='estilosGeneralInputs' name='APELLIDO' readonly="readonly">
+            <label for="">Usuario</label>
+            <input type="text" class='estilosGeneralInputs' name='USUARIO' readonly="readonly">
+            <label for="">Cedula</label>
+            <input type="text" class='estilosGeneralInputs' name='CEDULA' readonly="readonly">
+            <label for="">Direcion</label>
+            <input type="text" class='estilosGeneralInputs' name='DIRECCION' readonly="readonly">
+            <label for="">Telefono</label>
+            <input type="text" class='estilosGeneralInputs' name='TELEFONO' readonly="readonly">
+            <label for="">Correo</label>
+            <input type="text" class='estilosGeneralInputs' name='CORREO' readonly="readonly">
+            <label for="">Fecha de ingreso</label>
+            <input type="text" name=' FECHA_DE_INGRESO' readonly="readonly">
+            <label for="">Tipo de contrato</label>
+            <input type="text" class='estilosGeneralInputs' name='TIPO_DE_CONTRATO' readonly="readonly">
+            <label for="">Cargo</label>
+            <input type="text" class='estilosGeneralInputs' name='CARGO' readonly="readonly">
+            <label for="">Dependencia</label>
+            <input type="text" class='estilosGeneralInputs' name='DEPENDENCIA' readonly="readonly">
+            <label for="">Salario</label>
+            <input type="text" class='estilosGeneralInputs' name='SALARIO' readonly="readonly">
+        </form>
+    </div>
+    {% endblock %}
+
+</body>

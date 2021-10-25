@@ -1,0 +1,57 @@
+{% extends 'administrador.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    {% block contenido %}
+    <p>{{ retro }}</p>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/estiloRetroalimentacion.css')}}">
+    <h4 class="titulo_dash">RETROALIMENTACIÓN</h4>
+    <div class=contanerdorInformacion>
+        <table id="tableRetroalimentacion">
+            <tr>
+                <th>Retroalimentación</th>
+                <th>Opciones</th>
+            </tr>
+            <tr>
+                <td>Retroalimentacion #1</td>
+                <td><a class="far fa-eye retro"></a></td>
+            </tr>
+        </table>
+    </div>
+   
+    <section class="modal-retro">
+        <div class="ventana-crear-retroalimentacion">
+            <div class="div-title">
+                <h1>Ver Retroalimentación</h1>
+            </div>
+            <form method="POST" id="">
+                <div class="col-12">
+                    <div class="pares-datos2">
+                        <label for="">Fecha</label>
+                        <input for="" name='Fecha' id="fechaActual" >
+                    </div>
+                    <div class="pares-datos2">
+                        <label for="">Retroalimentación</label>
+                        <br>
+                        <textarea name="retroalimentacion-text" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="pares-datos2">
+                        <label for="">Puntaje</label>
+                        <input type="text" name="puntaje">
+                    </div>
+                    <div class="botones-finales2">
+                        <input type="reset" value="Cancelar" class="btn-cancelar2 cancelar-retro">
+
+                    </div>
+            </form>
+        </div>
+    </section>
+    {% endblock %}
+</body>

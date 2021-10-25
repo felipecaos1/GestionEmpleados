@@ -1,0 +1,226 @@
+{% extends 'administrador.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/styleCrearEmpleado.css">
+
+</head>
+
+<body>
+    {% block contenido %}
+
+    <table id="listaempleados">
+        <tr class="titulos">
+
+            <th>Codigo</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Opciones</th>
+
+        </tr>
+
+        {% for key, usuario in baseDatos.items() %}
+
+        <tr>
+            <td>{{ usuario.id }}</td>
+            <td>{{ usuario.nombre }}</td>
+            <td>{{ usuario.apellido }}</td>
+            <td>
+                <button id="{{ key }}" onclick="CargarInfoEmpleado({{ usuario }})" class="far fa-eye ver"></button>
+                <button id="{{ key }}" onclick="CargarInfoEmpleadoEditar({{ usuario }}, this)" class="far fa-edit editar"></button>
+                <a id="{{ key }}" href="/eliminar_empleado/{{ key }}" class = "far fa-trash-alt eliminar " ></a> 
+                <button id="{{ key }}" onclick="CambiarRuta(this)" class=" far fa-clipboard retro"></button>
+            </td>
+        </tr>
+
+
+
+
+        {% endfor %}
+    </table>
+    <section class="modal-retro">
+        <div class="ventana-crear-retroalimentacion">
+            <div class="div-title">
+                <h1>Crear Retroalimentación</h1>
+            </div>
+            <form method="POST" action="/generar_retroalimentación/"  id="formularioRetroalimentacion">
+                <div class="col-12">
+                    <div class="pares-datos2">
+                        <label for="">Fecha</label>
+                        <input for="" name='Fecha' id="fechaActual" >
+                    </div>
+                    <div class="pares-datos2">
+                        <label for="">Retroalimentación</label>
+                        <br>
+                        <textarea name="retroalimentacion-text" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="pares-datos2">
+                        <label for="">Puntaje</label>
+                        <input type="text" name="puntaje">
+                    </div>
+                    <div class="botones-finales2">
+
+                        <input type="submit" value="Guardar" class="btn-guardar2">
+                        <input type="reset" value="Cancelar" class="btn-cancelar2 cancelar-retro">
+
+                    </div>
+            </form>
+        </div>
+    </section>
+
+    <section id="modal-ver-empleado" class="modal-ver-empleado modal-crear-empleado">
+        <div class="ventana-crear-empleado">
+            <div class="div-title">
+                <h1>Informacion del empleado</h1>
+            </div>
+            <form action="" class="form-grid" method="POST">
+                {{ csrf_token }}
+                <div class="col-1">
+                    <div class="pares-datos">
+                        <label for="">Nombre</label>
+                        <input type="text" name="crear-nombre" id="MostrarNombre">
+                    </div>
+                    <div class="pares-datos">
+                        <label for="">Apellido</label>
+                        <input type="text" name="crear-apellido" id="Mostrarapellido">
+                    </div>
+                    <div class="pares-datos">
+                        <label for="">Cedula</label>
+                        <input type="text" name="crear-cedula">
+                    </div>
+                    <div class="pares-datos">
+                        <label for="">Usuario</label>
+                        <input type="text" name="crear-usuario">
+                    </div>
+                    <div class="pares-datos">
+                        <label for="">Contraseña</label>
+                        <input type="password" name="crear-contraseña">
+                    </div>
+                    <div class="pares-datos">
+                        <label for="">Fecha de ingreso</label>
+
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="pares-datos">
+                        <label for="">Fecha de Termino</label>
+
+                    </div>
+                    <div class="pares-datos">
+                        <label for="">Tipo de contrato</label>
+
+                    </div>
+                    <div class="pares-datos">
+                        <label for="">Cargo</label>
+
+                    </div>
+                    <div class="pares-datos">
+                        <label for="">Salario</label>
+                        <input type="text" name="crear-salario">
+                    </div>
+                    <div class="pares-datos">
+                        <label for="">Dependencia</label>
+                        <input type="text" name="crear-dependencia">
+                    </div>
+                </div>
+
+
+                <div class="botones-finales">
+
+                    <input type="button" value="cerrar" class="btn-cancelar cancelar-ventana-ver">
+
+                </div>
+            </form>
+        </div>
+
+    </section>
+
+    <section id="modal-Editar-empleado" class="modal-crear-empleado modal-editar-empleado">
+        <div class="ventana-crear-empleado">
+            <div class="div-title">
+                <h1>Editar Empleado</h1>
+            </div>
+            <form action="/editar_empleado/" class="form-grid" method="POST" id='FormularioEditarEmpleado'>
+                {{ csrf_token }}
+                <div class="col-1">
+                    <div class="pares-datos">
+                        <label for="">Nombre</label>
+                        <input type="text" name="crear-nombre" id="EditarNombre">
+                    </div>
+                    <div class="pares-datos">
+                        <label for="">Apellido</label>
+                        <input type="text" name="crear-apellido" id="EditarApellido">
+                    </div>
+                    <div class="pares-datos">
+                        <label for="">Cedula</label>
+                        <input type="text" name="crear-cedula" id="EditarCedula">
+                    </div>
+                    <div class="pares-datos">
+                        <label for="">Usuario</label>
+                        <input type="text" name="crear-usuario" id='EditarUsuario'>
+                    </div>
+                    <div class="pares-datos">
+                        <label for="">Contraseña</label>
+                        <input type="password" name="crear-contraseña">
+                    </div>
+                    <div class="pares-datos">
+                        <label for="">Fecha de ingreso</label>
+                        <input type="date" name="crear-fecha-ingreso">
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="pares-datos">
+                        <label for="">Fecha de Termino</label>
+                        <input type="date" name="crear-fecha-ingreso">
+                    </div>
+                    <div class="pares-datos">
+                        <label for="">Tipo de contrato</label>
+                        <select name="tipo-contrato">
+                            <option value="nada">Seleccione una opcion</option>
+                            <option value="Pservicios">Prestacion de servicios</option>
+                            <option value="indefinido">Indefinido</option>
+                        </select>
+                    </div>
+                    <div class="pares-datos">
+                        <label for="">Cargo</label>
+                        <select name="tipo-rol">
+                            <option value="nada">Seleccione una opcion</option>
+                            {% if tipo_user==3 %}
+                            <option value="Ssuperadministrador">Superadministrador</option>
+                            <option value="administrador">Administrador</option>
+                            {% endif %}
+                            <option value="empleado">Empleado</option>
+                        </select>
+                    </div>
+                    <div class="pares-datos">
+                        <label for="">Salaro</label>
+                        <input type="text" name="crear-salario">
+                    </div>
+                    <div class="pares-datos">
+                        <label for="">Dependencia</label>
+                        <input type="text" name="crear-dependencia">
+                    </div>
+                </div>
+
+
+                <div class="botones-finales">
+
+                    <input type="submit" value="Guardar" class="btn-guardar">
+                    <input type="reset" value="Cancelar" class="btn-cancelar cancelar-ventana-editar">
+
+                </div>
+            </form>
+        </div>
+
+    </section>
+
+    {% endblock %}
+
+
+</body>
+</html>

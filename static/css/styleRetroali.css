@@ -1,0 +1,56 @@
+.ventana-crear-retroalimentacion{
+    width: 450px;
+    height: 370px;
+    border: solid 1px rgba(66, 66, 66, 0.92);
+    
+    padding: 20px;
+}
+.div-title h1{
+    color: #00509d;
+    margin:0 0 10px 0;
+    font-size: 25px;
+}
+.div-title{
+    margin-bottom: 20px;
+    border-bottom: solid 1px rgba(56, 56, 56, 0.13);
+}
+.pares-datos2{
+    margin-bottom: 20px;
+    display: flex;
+    padding-right: 30px;
+    align-items: center;
+}
+.pares-datos2 label{
+    width: 140px!important;
+}
+.botones-finales2{
+    display: flex;
+    justify-content:end;
+    grid-column-start: 2;
+    margin-top: 30px;
+}
+.botones-finales2 .btn-guardar2{
+    margin-right:20px ;
+    padding: 10px;
+    background-color: #00509d;
+    border: solid 1px #00509d;
+    color: white;
+    border-radius: 5px;
+}
+
+.botones-finales2 .btn-cancelar2{
+    padding: 10px;
+    background-color: #00509d;
+    border: solid 1px #00509d;
+    color: white;
+    border-radius: 5px;
+}
+
+.botones-finales2 .btn-guardar2:hover{
+    background-color: white;
+    color: #00509d;
+}
+.botones-finales2 .btn-cancelar2:hover{
+    background-color: white;
+    color: #00509d;
+}

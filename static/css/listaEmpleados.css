@@ -1,0 +1,22 @@
+#listaempleados{
+    width: 100%;
+    margin-top: 20px;
+}
+#listaempleados, th ,td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin-left: 0px;
+    padding-left: 5px;
+    text-align: left;
+}
+
+#listaempleados th{
+    background-color: #004D9F;
+    color: white;
+    font-weight: bold;
+    padding: 4px;
+}
+.titulos{
+    height: 40px;
+    border-bottom: solid 1px gray;
+}

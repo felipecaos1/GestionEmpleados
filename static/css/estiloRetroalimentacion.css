@@ -1,0 +1,26 @@
+#tableRetroalimentacion, th ,td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin-left: 0px;
+    padding-left: 5px;
+    text-align: left;
+}
+#tableRetroalimentacion th{
+    background-color: #004D9F;
+    color: white;
+    font-weight: bold;
+    padding: 4px;
+}
+#tableRetroalimentacion{
+    width: 100%;
+    border-radius: 5px;
+}
+
+#tableRetroalimentacion td {
+    padding: 4px;
+}
+#tableRetroalimentacion a {
+    text-decoration: none;
+    color: #004D9F;
+    cursor: pointer;
+}

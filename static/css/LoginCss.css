@@ -1,0 +1,113 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body{
+    width: 100%;
+    height: 100vh;    
+}
+body .contenedor{
+    width: 100%;
+    height: 100%;
+    background:url("/static/img/FondoLogin.jpg");
+    background-position:center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body .formulario{
+    width: 520px;
+    height:550px;
+    background:white;
+    background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.1)
+    );
+    border-radius: 1rem;
+    backdrop-filter: blur(1.5rem);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+}
+body .formulario h1{
+    color:black;
+    margin-top: 20px;
+}
+body .formulario form{
+    margin-bottom: 40px;
+    width: 90%;
+    font-size: 1rem;
+    font-weight: bold;
+    color:black;
+}
+body .formulario form .boxInputs{
+    width: 100%;
+    height: 40px;
+    margin-top: 1px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    overflow: hidden;
+    border-bottom: solid 2px;
+    border-color: rgba(1, 66, 131, 0.5);
+    padding-right: 20px;
+}
+
+body .formulario form > label{
+    margin-left: 10px;
+    display: block;
+}
+body .formulario form > a{
+    display: block;
+    color:black;
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+body .formulario form > a:hover{
+    color:#024385;
+}
+
+body .formulario form .boxInputs > i{
+    cursor: pointer;
+}
+
+body .formulario form .estiloInputs{
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    border: 0;
+    background-color: transparent;
+    outline: none;
+    font-weight: bold;
+    color:#024485c9;    
+}
+
+body .formulario form  #btnIniciarSesion{
+    padding: 15px;
+    width: 100%;
+    border: 0px;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 90px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #014283;
+    color: white;
+    transition-duration: 0.5s;
+}
+
+body .formulario form  #btnIniciarSesion:hover{
+    background-color: #003972;
+    transition-duration: 0.5s;
+
+}
+
