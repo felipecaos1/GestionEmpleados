@@ -13,7 +13,7 @@ baseDatos={
     4:{'id':'s4','nombre':'Maria','apellido':'perez','rol':3}
 }
 
-#Comentario agregado 
+
 retroalimentacionEmpleados ={}
 #VARIABLES
 tipo_user = ''
