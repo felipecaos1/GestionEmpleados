@@ -42,7 +42,7 @@ def ingreso():
         try:
             with sqlite3.connect("D:\Downloads\GestionEmpleados\SGE") as con:
                 cur= con.cursor()
-                registro= cur.execute("select* from datos where usuario = ?",[formUser]).fetchone()
+                registro = cur.execute("select * from datos where usuario = ?",[formUser]).fetchone()
                
                 if registro !=None:
                     #if check_password_hash(registro[2],formContraseña):#desencripto y calido contraseña
