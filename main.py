@@ -211,20 +211,5 @@ def editar_empleado (id_usuario):
       return redirect('/lista-empleados')
 #HASTA ACA ORGANIZADO////////////////////////////////////////////////////////////////////////////// 
 
-
-
-
-
-#recibir el id 
-
-# @app.route('/superadministrador', methods = ["GET"])
-# def superadministrador ():
-#     return "Estás en superadministrador"
-
-# @app.route('/asignar_roles', methods = ["GET", "POST"])
-# def asignar_roles ():
-#     return "Estás en la página para asignar roles"
-
-
 if __name__ == "__main__":
     app.run(debug=True)
