@@ -177,6 +177,15 @@ def buscar_empleado ():
 @app.route('/eliminar_empleado/<int:id_usuario>', methods = ["GET", "POST"])
 def eliminar_empleado (id_usuario):
     #recibir el id del empleado donde se presiono eliminar para bucarlo en la base y eliminarlo 
+    try:
+        with sqlite3.connect("D:\Downloads\GestionEmpleados\SGE") as con:
+            cur= con.cursor()
+            cur.execute("delete ...")#sentencia  
+            con.commit()
+            
+              
+    except:
+            con.rollback()
     baseDatos.pop(id_usuario)
     return redirect('/lista-empleados')
 
