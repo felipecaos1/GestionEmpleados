@@ -127,17 +127,16 @@ def crear_empleado ():
         subId = 's'+ str(valorId)
     
     # conexion a la base de datos ( por terminar) 
-    #try:
-    with sqlite3.connect("SGE") as con:
-        cur= con.cursor()
-        cur.execute("insert into datos(id,usuario,contrasena) values (?,?,?)",(valorId,usuario,contra_cifrada))#sentencia y valores terminar 
-        print("paso")
-        con.commit()
-        valorId +=1
-        return redirect("/administrador")
-              
-    ##except:
-      #      con.rollback()
+    try:
+        with sqlite3.connect("SGE") as con:
+            cur= con.cursor()
+            cur.execute("insert into datos(id,usuario,contrasena) values (?,?,?)",(valorId,usuario,contra_cifrada))#sentencia y valores terminar 
+            con.commit()
+            valorId +=1
+            return redirect("/administrador")
+                
+    except:
+        con.rollback()
 
     #baseDatos [valorId] = {'id':subId,'nombre':nombreU,'apellido':apellido,'rol':Rol}
     
