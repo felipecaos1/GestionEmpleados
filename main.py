@@ -124,7 +124,19 @@ def crear_empleado ():
     else:
         Rol = 3   
         subId = 's'+ str(valorId)
-    baseDatos [valorId] = {'id':subId,'nombre':nombreU,'apellido':apellido,'rol':Rol}
+    
+    # conexion a la base de datos ( por terminar) 
+    try:
+        with sqlite3.connect("D:\Downloads\GestionEmpleados\SGE") as con:
+            cur= con.cursor()
+            cur.execute("insert into...")#sentencia y valores terminar 
+            con.commit()
+            
+              
+    except:
+            con.rollback()
+
+    #baseDatos [valorId] = {'id':subId,'nombre':nombreU,'apellido':apellido,'rol':Rol}
     valorId +=1
     return redirect('/administrador')
 
