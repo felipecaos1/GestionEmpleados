@@ -128,7 +128,7 @@ def crear_empleado ():
     
     # conexion a la base de datos ( por terminar) 
     try:
-        with sqlite3.connect("SGE") as con:
+        with sqlite3.connect("SGE") as con:#conectarse a la base de dto oficial
             cur= con.cursor()
             cur.execute("insert into datos(id,usuario,contrasena) values (?,?,?)",(valorId,usuario,contra_cifrada))#sentencia y valores terminar 
             con.commit()
