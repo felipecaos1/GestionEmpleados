@@ -107,6 +107,7 @@ def crear_empleado ():
     cedula= request.form['crear-cedula']
     usuario= request.form['crear-usuario']
     contrasena= request.form['crear-contraseña'] 
+    contra_cifrada=generate_password_hash(contrasena) #esta es la contraseña que hay que guardar en la base de datos
     fechaIngreso= request.form['crear-fecha-ingreso']
     FechaTerminacion= request.form['crear-fecha-ingreso']
     Rol= request.form['tipo-rol']
