@@ -19,7 +19,7 @@ retroalimentacionEmpleados ={}
 tipo_user = ''
 id_user = ''
 nombre = ''
-valorId = 5
+valorId = 6
 
 #1:empleado
 #2:administrador
@@ -47,11 +47,11 @@ def ingreso():
                 print("norml")
                 print(registro)
                 if registro !=None:
-                    #if check_password_hash(registro[2],formContraseña):#desencripto y calido contraseña
-                        # registro2=cur.execute("select id,nombre,rol from empleado where id = ?"[registro[0]])
-                        # nombre=registro2[1]
-                        # tipo_user=registro2[2]
-                        # id_user=registro2[0]
+                    if check_password_hash(registro[2],formContraseña):#desencripto y calido contraseña
+                         #registro2=cur.execute("select id,nombre,rol from empleado where id = ?"[registro[0]])
+                         #nombre=registro2[1]
+                         #tipo_user=registro2[2]
+                         #id_user=registro2[0]
                         return redirect('/administrador')   
         except:
             con.rollback()
@@ -127,19 +127,21 @@ def crear_empleado ():
         subId = 's'+ str(valorId)
     
     # conexion a la base de datos ( por terminar) 
-    try:
-        with sqlite3.connect("D:\Downloads\GestionEmpleados\SGE") as con:
-            cur= con.cursor()
-            cur.execute("insert into...")#sentencia y valores terminar 
-            con.commit()
-            
+    #try:
+    with sqlite3.connect("SGE") as con:
+        cur= con.cursor()
+        cur.execute("insert into datos(id,usuario,contrasena) values (?,?,?)",(valorId,usuario,contra_cifrada))#sentencia y valores terminar 
+        print("paso")
+        con.commit()
+        valorId +=1
+        return redirect("/administrador")
               
-    except:
-            con.rollback()
+    ##except:
+      #      con.rollback()
 
     #baseDatos [valorId] = {'id':subId,'nombre':nombreU,'apellido':apellido,'rol':Rol}
-    valorId +=1
-    return redirect('/administrador')
+    
+    
 
 @app.route('/lista-empleados',methods=["GET"])
 def listarEmpleados():
@@ -179,7 +181,7 @@ def buscar_empleado ():
 def eliminar_empleado (id_usuario):
     #recibir el id del empleado donde se presiono eliminar para bucarlo en la base y eliminarlo 
     try:
-        with sqlite3.connect("D:\Downloads\GestionEmpleados\SGE") as con:
+        with sqlite3.connect("SGE") as con:
             cur= con.cursor()
             cur.execute("delete ...")#sentencia  
             con.commit()
