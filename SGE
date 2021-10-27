@@ -1,1 +1,0 @@
-delete from datos where id='8';
