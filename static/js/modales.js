@@ -35,11 +35,15 @@ function CargarInfoEmpleado(User) {
     console.log(User)
     let nombre =document.getElementById('MostrarNombre').value = User["nombre"];
     let apellido =document.getElementById('Mostrarapellido').value=User["apellido"]; 
-    let Cedula =document.getElementById('crear-cedula').value=User["cedula"];
-    let usuario =document.getElementById('crear-usuario'); 
-    let pass =document.getElementById('crear-contraseña'); 
-    let cargo =document.getElementById('cargo').value=User["cargo"]; 
-    let salario=document.getElementById('crear-salario').value=User["salario"]
+    let Cedula =document.getElementById('mostrar-cedula').value=User["cedula"];
+    let usuario =document.getElementById('mostrar-usuario'); 
+    let pass =document.getElementById('mostrar-contraseña'); 
+    let cargo =document.getElementById('mostrar-cargo').value=User["cargo"]; 
+    let salario=document.getElementById('mostrar-salario').value=User["salario"];
+    let fecha1=document.getElementById('mostrar-fecha-ingreso').value=User["fechaingreso"];
+    let fecha2=document.getElementById('mostrar-fecha-termino').value=User["fechatermino"];
+    let contrato=document.getElementById('mostrar-contrato').value=User["tipocontrato"];
+    let dependencia=document.getElementById('mostrardependencia').value=User["dependencia"];
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 

@@ -118,7 +118,7 @@ def crear_empleado ():
    
     tipocontrato=request.form['tipo-contrato']
     fechaIngreso= request.form['crear-fecha-ingreso']
-    FechaTerminacion= request.form['crear-fecha-ingreso']
+    FechaTerminacion= request.form['crear-fecha-termino']
     Rol= request.form['tipo-rol']
     Salario= float(request.form['crear-salario'])
     dependencia= request.form['crear-dependencia']
@@ -169,7 +169,7 @@ def listarEmpleados():
                     lista=cur.fetchall()
                     j=0
                     for i in range(len(lista)):
-                        baseDatos2 [j] = {'cedula':lista[j][0],'nombre':lista[j][1],'apellido':lista[j][2],'cargo':lista[j][3],'salario':lista[j][4]}
+                        baseDatos2 [j] = {'cedula':lista[j][0],'nombre':lista[j][1],'apellido':lista[j][2],'cargo':lista[j][3],'salario':lista[j][4],'fechaingreso':lista[j][6],'fechatermino':lista[j][7],'tipocontrato':lista[j][8],'dependencia':lista[j][9]}
                         j=j+1
                    
                     if lista is None:
