@@ -40,22 +40,20 @@ def ingreso():
 
         formUser=request.form['user']
         formContraseña=request.form['contraseña']
-        try:
-            with sqlite3.connect("SGE") as con:
-                cur= con.cursor()
-                registro = cur.execute("select * from datos where usuario = ?",[formUser]).fetchone()
-                print("norml")
-                print(registro)
-                if registro !=None:
-                    if check_password_hash(registro[2],formContraseña):#desencripto y calido contraseña
-                        print("valida")
-                        session=True
-                        #registro2=cur.execute("select * from empleado where id = ?"[registro[0]])
-                        #nombre=registro2[1]
-                        #tipo_user=registro2[2]
-                        #id_user=registro2[0]
-                        return redirect('/administrador')   
-        except:
+        #try:
+        with sqlite3.connect("SGE") as con:
+            cur= con.cursor()
+            registro = cur.execute("select * from datos where usuario = ?",[formUser]).fetchone()
+           
+            if registro !=None:
+                if check_password_hash(registro[2],formContraseña):#desencripto y calido contraseñ
+                    session=True
+                    registro2=cur.execute("select * from empleado where cedula = ?",[registro[0]]).fetchone()
+                    nombre=registro2[1]
+                    tipo_user=registro2[5]
+                    id_user=registro2[0]
+                    return redirect('/administrador')   
+        #except:
             con.rollback()
     
     return redirect('/')
@@ -135,17 +133,18 @@ def crear_empleado ():
         subId = 's'+ str(valorId)
     
     # conexion a la base de datos ( por terminar) 
-    #try:
-    with sqlite3.connect("SGE") as con:#conectarse a la base de dto oficial
-        cur= con.cursor()
-        cur.execute("insert into empleado(cedula,nombre,apellido,cargo,salario,rol_id,fechainicio,fechatermino,tipocontrato,dependencia) values (?,?,?,?,?,?,?,?,?,?)",(int(cedula),nombreU,apellido,Rol,Salario,Rol2,fechaIngreso,FechaTerminacion,tipocontrato,dependencia))#sentencia y valores terminar 
-        cur.execute("insert into datos(id,usuario,contrasena) values(?,?,?)",(int(cedula),usuario,contra_cifrada))
-        con.commit()
-        valorId +=1
-        return redirect("/administrador")
+    try:
+        with sqlite3.connect("SGE") as con:#conectarse a la base de dto oficial
+            cur= con.cursor()
+            cur.execute("insert into empleado(cedula,nombre,apellido,cargo,salario,rol_id,fechainicio,fechatermino,tipocontrato,dependencia) values (?,?,?,?,?,?,?,?,?,?)",(int(cedula),nombreU,apellido,Rol,Salario,Rol2,fechaIngreso,FechaTerminacion,tipocontrato,dependencia))#sentencia y valores terminar 
+            cur.execute("insert into datos(id,usuario,contrasena) values(?,?,?)",(int(cedula),usuario,contra_cifrada))
+            con.commit()
+            valorId +=1
+            return redirect("/administrador")
                 
-    #except:
+    except:
         con.rollback()
+        return redirect("/administrador")
 
     #baseDatos [valorId] = {'id':subId,'nombre':nombreU,'apellido':apellido,'rol':Rol}
     
@@ -154,14 +153,14 @@ def crear_empleado ():
 @app.route('/lista-empleados',methods=["GET"])
 def listarEmpleados():
     baseDatos2={}
+    global id_user
     try:
 
         with sqlite3.connect("SGE") as con:
                     #con.row_factory=sqlite3.Row
                     cur= con.cursor()
-                    cur.execute("select * from empleado")
+                    cur.execute("select * from empleado where cedula!=?",[id_user])
                     lista=cur.fetchall()
-                    print(len(lista))
                     j=0
                     for i in range(len(lista)):
                         baseDatos2 [j] = {'cedula':lista[j][0],'nombre':lista[j][1],'apellido':lista[j][2],'cargo':lista[j][3],'salario':lista[j][4]}
