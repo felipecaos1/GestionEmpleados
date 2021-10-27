@@ -50,7 +50,7 @@ def ingreso():
                     if check_password_hash(registro[2],formContraseña):#desencripto y calido contraseña
                         print("valida")
                         session=True
-                        #registro2=cur.execute("select id,nombre,rol from empleado where id = ?"[registro[0]])
+                        registro2=cur.execute("select * from empleado where id = ?"[registro[0]])
                         #nombre=registro2[1]
                         #tipo_user=registro2[2]
                         #id_user=registro2[0]
@@ -213,13 +213,13 @@ def eliminar_empleado (id_usuario):
     try:
         with sqlite3.connect("SGE") as con:
             cur= con.cursor()
-            cur.execute("delete ...")#sentencia  
+            cur.execute("delete from empleado where cedula=?;",[id_user])#sentencia  
             con.commit()
-            
+            return redirect('/lista-empleados')
               
     except:
             con.rollback()
-    baseDatos.pop(id_usuario)
+    
     return redirect('/lista-empleados')
 
 
