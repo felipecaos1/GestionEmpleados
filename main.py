@@ -152,22 +152,37 @@ def crear_empleado ():
 
 @app.route('/lista-empleados',methods=["GET"])
 def listarEmpleados():
-    Lista = {}
-    if tipo_user == 2:
-        for Actusuario in baseDatos:
-            if nombre != baseDatos.get(Actusuario).get('nombre') and baseDatos.get(Actusuario).get('rol') != 3:
-                Lista[Actusuario] = baseDatos.get(Actusuario)
-    else:
-        for Actusuario in baseDatos:
-            if nombre != baseDatos.get(Actusuario).get('nombre'):
-                Lista[Actusuario] = baseDatos.get(Actusuario)
+    try:
+
+        with sqlite3.connect("SGE") as con:
+                    cur= con.cursor()
+                    lista = cur.execute("select * from empleado").fetchall()
+                    print(lista[0][3])
+                    if lista is None:
+                        return redirect("/administrador")
+                    else:
+                        return render_template('base-lista-empleados.html',
+                                tipo_user=tipo_user,
+                                id_user=id_user,
+                                baseDatos=lista,
+                                nombre=nombre
+                                )
+
+    except:
+        con.rollback()
+
+        return redirect("/administrador")       
+    # Lista = {}
+    # if tipo_user == 2:
+    #     for Actusuario in baseDatos:
+    #         if nombre != baseDatos.get(Actusuario).get('nombre') and baseDatos.get(Actusuario).get('rol') != 3:
+    #             Lista[Actusuario] = baseDatos.get(Actusuario)
+    # else:
+    #     for Actusuario in baseDatos:
+    #         if nombre != baseDatos.get(Actusuario).get('nombre'):
+    #             Lista[Actusuario] = baseDatos.get(Actusuario)
             
-    return render_template('base-lista-empleados.html',
-    tipo_user=tipo_user,
-    id_user=id_user,
-    baseDatos=Lista,
-    nombre=nombre
-    )
+    
 
 @app.route('/buscar_empleado', methods = ["POST"])
 def buscar_empleado ():

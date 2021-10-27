@@ -24,12 +24,12 @@
 
         </tr>
 
-        {% for key, usuario in baseDatos.items() %}
+        {% for usuario in baseDatos %}
 
         <tr>
-            <td>{{ usuario.id }}</td>
-            <td>{{ usuario.nombre }}</td>
-            <td>{{ usuario.apellido }}</td>
+            <td>{{ usuario[0] }}</td>
+            <td>{{ usuario[1] }}</td>
+            <td>{{ usuario[2] }}</td>
             <td>
                 <button id="{{ key }}" onclick="CargarInfoEmpleado({{ usuario }})" class="far fa-eye ver"></button>
                 <button id="{{ key }}" onclick="CargarInfoEmpleadoEditar({{ usuario }}, this)" class="far fa-edit editar"></button>
