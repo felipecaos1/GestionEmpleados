@@ -23,23 +23,20 @@
             <th>Opciones</th>
 
         </tr>
-
-        {% for usuario in baseDatos %}
-            
+       
+        {% for key, usuario in baseDatos.items() %}
+     
         <tr>
-            <td>{{ usuario[0] }}</td>
-            <td>{{ usuario[1] }}</td>
-            <td>{{ usuario[2] }}</td>
+            <td>{{ usuario["cedula"] }}</td>
+            <td>{{ usuario["nombre"] }}</td>
+            <td>{{ usuario["apellido"] }}</td>
             <td>
-                <button id="{{ usuario['cedula'] }}" onclick="CargarInfoEmpleado({{ usuario2 }})" class="far fa-eye ver"></button>
+                <button id="{{ usuario['cedula'] }}" onclick="CargarInfoEmpleado({{ usuario }})" class="far fa-eye ver"></button>
                 <button id="{{ usuario['cedula'] }}" onclick="CargarInfoEmpleadoEditar({{ usuario }}, this)" class="far fa-edit editar"></button>
                 <a id="{{ usuario['cedula'] }}" href="/eliminar_empleado/{{ key }}" class = "far fa-trash-alt eliminar " ></a> 
                 <button id="{{ usuario['cedula'] }}" onclick="CambiarRuta(this)" class=" far fa-clipboard retro"></button>
             </td>
         </tr>
-
-
-
 
         {% endfor %}
     </table>
@@ -83,23 +80,23 @@
                 <div class="col-1">
                     <div class="pares-datos">
                         <label for="">Nombre</label>
-                        <input type="text" name="crear-nombre" id="MostrarNombre">
+                        <input type="text" name="crear-nombre" id="MostrarNombre" readonly="readonly">
                     </div>
                     <div class="pares-datos">
                         <label for="">Apellido</label>
-                        <input type="text" name="crear-apellido" id="Mostrarapellido">
+                        <input type="text" name="crear-apellido" id="Mostrarapellido"  readonly="readonly">
                     </div>
                     <div class="pares-datos">
                         <label for="">Cedula</label>
-                        <input type="text" name="crear-cedula">
+                        <input type="text" id="crear-cedula"  readonly="readonly">
                     </div>
                     <div class="pares-datos">
                         <label for="">Usuario</label>
-                        <input type="text" name="crear-usuario">
+                        <input type="text" id="crear-usuario"  readonly="readonly">
                     </div>
                     <div class="pares-datos">
                         <label for="">Contraseña</label>
-                        <input type="password" name="crear-contraseña">
+                        <input type="password" id="crear-contraseña"  readonly="readonly">
                     </div>
                     <div class="pares-datos">
                         <label for="">Fecha de ingreso</label>
@@ -117,15 +114,15 @@
                     </div>
                     <div class="pares-datos">
                         <label for="">Cargo</label>
-
+                        <input type="text" id="cargo"  readonly="readonly"> 
                     </div>
                     <div class="pares-datos">
                         <label for="">Salario</label>
-                        <input type="text" name="crear-salario">
+                        <input type="text" id="crear-salario"  readonly="readonly">
                     </div>
                     <div class="pares-datos">
                         <label for="">Dependencia</label>
-                        <input type="text" name="crear-dependencia">
+                        <input type="text" name="crear-dependencia"  readonly="readonly">
                     </div>
                 </div>
 

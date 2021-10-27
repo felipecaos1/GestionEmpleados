@@ -152,6 +152,7 @@ def crear_empleado ():
 
 @app.route('/lista-empleados',methods=["GET"])
 def listarEmpleados():
+    baseDatos2={}
     try:
 
         with sqlite3.connect("SGE") as con:
@@ -159,14 +160,19 @@ def listarEmpleados():
                     cur= con.cursor()
                     cur.execute("select * from empleado")
                     lista=cur.fetchall()
-                    
+                    print(len(lista))
+                    j=0
+                    for i in range(len(lista)):
+                        baseDatos2 [j] = {'cedula':lista[j][0],'nombre':lista[j][1],'apellido':lista[j][2],'cargo':lista[j][3],'salario':lista[j][4]}
+                        j=j+1
+                   
                     if lista is None:
                         return redirect("/administrador")
                     else:
                         return render_template('base-lista-empleados.html',
                                 tipo_user=tipo_user,
                                 id_user=id_user,
-                                baseDatos=lista,
+                                baseDatos=baseDatos2,
                                 nombre=nombre
                                 )
 
