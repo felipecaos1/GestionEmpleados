@@ -40,20 +40,20 @@ def ingreso():
 
         formUser=request.form['user']
         formContraseña=request.form['contraseña']
-        #try:
-        with sqlite3.connect("SGE") as con:
-            cur= con.cursor()
-            registro = cur.execute("select * from datos where usuario = ?",[formUser]).fetchone()
-           
-            if registro !=None:
-                if check_password_hash(registro[2],formContraseña):#desencripto y calido contraseñ
-                    session=True
-                    registro2=cur.execute("select * from empleado where cedula = ?",[registro[0]]).fetchone()
-                    nombre=registro2[1]
-                    tipo_user=registro2[5]
-                    id_user=registro2[0]
-                    return redirect('/administrador')   
-        #except:
+        try:
+            with sqlite3.connect("SGE") as con:
+                cur= con.cursor()
+                registro = cur.execute("select * from datos where usuario = ?",[formUser]).fetchone()
+            
+                if registro !=None:
+                    if check_password_hash(registro[2],formContraseña):#desencripto y calido contraseñ
+                        session=True
+                        registro2=cur.execute("select * from empleado where cedula = ?",[registro[0]]).fetchone()
+                        nombre=registro2[1]
+                        tipo_user=registro2[5]
+                        id_user=registro2[0]
+                        return redirect('/administrador')   
+        except:
             con.rollback()
     
     return redirect('/')
@@ -62,7 +62,8 @@ def ingreso():
 @app.route('/administrador/<int:id_usuario>/',methods = ["GET"])
 @app.route('/administrador',methods = ["GET"])
 def administrador ():
-    global session
+    global session, tipo_user,id_user,nombre
+    print(session)
     if session:
         return render_template('administrador.html',
         tipo_user=tipo_user,
@@ -75,8 +76,9 @@ def administrador ():
 
 @app.route('/salir', methods = ["POST"])
 def salir():
-    global tipo_user
+    global tipo_user, session
     tipo_user=0
+    session=False 
 
     return redirect('/')
 
@@ -214,6 +216,8 @@ def eliminar_empleado (id_usuario):
         with sqlite3.connect("SGE") as con:
             cur= con.cursor()
             cur.execute("delete from empleado where cedula=?;",[id_usuario])#sentencia  
+            con.commit()
+            cur.execute("delete from datos where id=?;",[id_usuario])
             con.commit()
             return redirect('/lista-empleados')
               
