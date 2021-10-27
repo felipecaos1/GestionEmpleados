@@ -25,13 +25,13 @@
         </tr>
 
         {% for usuario in baseDatos %}
-          
+            
         <tr>
-            <td>{{ usuario["cedula"] }}</td>
-            <td>{{ usuario["nombre"] }}</td>
-            <td>{{ usuario["apellido"] }}</td>
+            <td>{{ usuario[0] }}</td>
+            <td>{{ usuario[1] }}</td>
+            <td>{{ usuario[2] }}</td>
             <td>
-                <button id="{{ usuario['cedula'] }}" onclick="CargarInfoEmpleado({{ usuario }})" class="far fa-eye ver"></button>
+                <button id="{{ usuario['cedula'] }}" onclick="CargarInfoEmpleado({{ usuario2 }})" class="far fa-eye ver"></button>
                 <button id="{{ usuario['cedula'] }}" onclick="CargarInfoEmpleadoEditar({{ usuario }}, this)" class="far fa-edit editar"></button>
                 <a id="{{ usuario['cedula'] }}" href="/eliminar_empleado/{{ key }}" class = "far fa-trash-alt eliminar " ></a> 
                 <button id="{{ usuario['cedula'] }}" onclick="CambiarRuta(this)" class=" far fa-clipboard retro"></button>

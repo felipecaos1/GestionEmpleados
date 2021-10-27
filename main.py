@@ -155,7 +155,7 @@ def listarEmpleados():
     try:
 
         with sqlite3.connect("SGE") as con:
-                    con.row_factory=sqlite3.Row
+                    #con.row_factory=sqlite3.Row
                     cur= con.cursor()
                     cur.execute("select * from empleado")
                     lista=cur.fetchall()
