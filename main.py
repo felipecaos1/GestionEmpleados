@@ -50,7 +50,7 @@ def ingreso():
                     if check_password_hash(registro[2],formContraseña):#desencripto y calido contraseña
                         print("valida")
                         session=True
-                        registro2=cur.execute("select * from empleado where id = ?"[registro[0]])
+                        #registro2=cur.execute("select * from empleado where id = ?"[registro[0]])
                         #nombre=registro2[1]
                         #tipo_user=registro2[2]
                         #id_user=registro2[0]
@@ -116,6 +116,7 @@ def crear_empleado ():
     contrasena= request.form['crear-contraseña'] 
     contra_cifrada=generate_password_hash(contrasena) #esta es la contraseña que hay que guardar en la base de datos
    
+    tipocontrato=request.form['tipo-contrato']
     fechaIngreso= request.form['crear-fecha-ingreso']
     FechaTerminacion= request.form['crear-fecha-ingreso']
     Rol= request.form['tipo-rol']
@@ -137,8 +138,8 @@ def crear_empleado ():
     #try:
     with sqlite3.connect("SGE") as con:#conectarse a la base de dto oficial
         cur= con.cursor()
-        cur.execute("insert into empleado(cedula,nombre,apellido,cargo,salario,rol_id) values (?,?,?,?,?,?)",(int(cedula),nombreU,apellido,Rol,Salario,Rol2))#sentencia y valores terminar 
-        cur.execute("insert into datos(usuario,contrasena) values(?,?)",(usuario,contra_cifrada))
+        cur.execute("insert into empleado(cedula,nombre,apellido,cargo,salario,rol_id,fechainicio,fechatermino,tipocontrato,dependencia) values (?,?,?,?,?,?,?,?,?,?)",(int(cedula),nombreU,apellido,Rol,Salario,Rol2,fechaIngreso,FechaTerminacion,tipocontrato,dependencia))#sentencia y valores terminar 
+        cur.execute("insert into datos(id,usuario,contrasena) values(?,?,?)",(int(cedula),usuario,contra_cifrada))
         con.commit()
         valorId +=1
         return redirect("/administrador")
@@ -213,7 +214,7 @@ def eliminar_empleado (id_usuario):
     try:
         with sqlite3.connect("SGE") as con:
             cur= con.cursor()
-            cur.execute("delete from empleado where cedula=?;",[id_user])#sentencia  
+            cur.execute("delete from empleado where cedula=?;",[id_usuario])#sentencia  
             con.commit()
             return redirect('/lista-empleados')
               
