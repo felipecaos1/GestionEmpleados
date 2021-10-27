@@ -185,17 +185,7 @@ def listarEmpleados():
     except:
         con.rollback()
 
-        return redirect("/administrador")       
-    # Lista = {}
-    # if tipo_user == 2:
-    #     for Actusuario in baseDatos:
-    #         if nombre != baseDatos.get(Actusuario).get('nombre') and baseDatos.get(Actusuario).get('rol') != 3:
-    #             Lista[Actusuario] = baseDatos.get(Actusuario)
-    # else:
-    #     for Actusuario in baseDatos:
-    #         if nombre != baseDatos.get(Actusuario).get('nombre'):
-    #             Lista[Actusuario] = baseDatos.get(Actusuario)
-            
+        return redirect("/administrador")  
     
 
 @app.route('/buscar_empleado', methods = ["POST"])
