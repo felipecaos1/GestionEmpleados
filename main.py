@@ -155,9 +155,11 @@ def listarEmpleados():
     try:
 
         with sqlite3.connect("SGE") as con:
+                    con.row_factory=sqlite3.Row
                     cur= con.cursor()
-                    lista = cur.execute("select * from empleado").fetchall()
-                    print(lista[0][3])
+                    cur.execute("select * from empleado")
+                    lista=cur.fetchall()
+                    
                     if lista is None:
                         return redirect("/administrador")
                     else:
