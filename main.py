@@ -12,7 +12,11 @@ baseDatos={
     3:{'id':'a3','nombre':'Pepe','apellido':'cardona','rol':2},
     4:{'id':'s4','nombre':'Maria','apellido':'perez','rol':3}
 }
-
+Roles={
+    "empleado":1,
+    "administrador":2,
+    "superadministrador":3
+}
 
 retroalimentacionEmpleados ={}
 #VARIABLES
@@ -41,10 +45,9 @@ def ingreso():
         formUser=request.form['user']
         formContraseña=request.form['contraseña']
         try:
-            with sqlite3.connect("D:\Downloads\GestionEmpleados\SGE") as con:
+            with sqlite3.connect("S_G_E.db") as con:
                 cur= con.cursor()
-                registro = cur.execute("select * from datos where usuario = ?",[formUser]).fetchone()
-               
+                registro = cur.execute("select * from datos_de_usuario where usuario = ? and contrasena = ?",[formUser,formContraseña]).fetchone()
                 if registro !=None:
                     #if check_password_hash(registro[2],formContraseña):#desencripto y calido contraseña
                         # registro2=cur.execute("select id,nombre,rol from empleado where id = ?"[registro[0]])
@@ -110,21 +113,32 @@ def crear_empleado ():
     fechaIngreso= request.form['crear-fecha-ingreso']
     FechaTerminacion= request.form['crear-fecha-ingreso']
     Rol= request.form['tipo-rol']
+    tipoContrato = request.form['tipo-contrato']
     Salario= request.form['crear-salario']
     dependencia= request.form['crear-dependencia']
-    global valorId 
-    global baseDatos
-    if Rol == 'empleado':
-        Rol = 1
-        subId = 'e'+ str(valorId)
-    elif Rol == 'administrador':
-        Rol= 2
-        subId = 'a'+ str(valorId)
-    else:
-        Rol = 3   
-        subId = 's'+ str(valorId)
-    baseDatos [valorId] = {'id':subId,'nombre':nombreU,'apellido':apellido,'rol':Rol}
-    valorId +=1
+    # global valorId 
+    # global baseDatos
+    # if Rol == 'empleado':
+    #     Rol = 1
+    #     subId = 'e'+ str(valorId)
+    # elif Rol == 'administrador':
+    #     Rol= 2
+    #     subId = 'a'+ str(valorId)
+    # else:
+    #     Rol = 3   
+    #     subId = 's'+ str(valorId)
+    # baseDatos [valorId] = {'id':subId,'nombre':nombreU,'apellido':apellido,'rol':Rol}
+    # valorId +=1
+    try:
+            with sqlite3.connect("S_G_E.db") as con:
+                cur = con.cursor()
+                cur.execute("INSERT INTO informacionContrato (fecha_ingreso,fecha_terminacion,tipoContrato,empleado_cedula) VALUES (?,?,?,?)",(fechaIngreso,FechaTerminacion,tipoContrato,cedula)).fetchone()
+                cur.execute('INSERT INTO datos_de_usuario (usuario,contrasena) VALUES (?,?)',(usuario,contrasena)).fetchone()
+                cur.execute("INSERT INTO empleado (cedula,nombre,apellido,salario,dependecia,rol_id,datos_de_usuario) VALUES (?,?,?,?,?,?,?)",(cedula,nombreU,apellido,Salario,dependencia,Roles[Rol],2)).fetchone()
+                con.commit()
+    except Exception:
+        print(Exception.args[0])
+        con.rollback()
     return redirect('/administrador')
 
 @app.route('/lista-empleados',methods=["GET"])
