@@ -7,29 +7,29 @@
         <h4 class="titulo_dash">INFORMACIÓN PERSONAL</h4>
         <form action="" method="">
             <label for="">Nombre</label>
-            <input type="text" class='estilosGeneralInputs' value="{{ nombre }}" name='Nombre' readonly="readonly">
+            <input type="text" class='estilosGeneralInputs' value="{{ baseDatos[1] }}" name='Nombre' readonly="readonly">
             <label for="">Apellido</label>
-            <input type="text" class='estilosGeneralInputs' name='APELLIDO' readonly="readonly">
+            <input type="text" class='estilosGeneralInputs' value="{{ baseDatos[2] }}" name='APELLIDO' readonly="readonly">
             <label for="">Usuario</label>
-            <input type="text" class='estilosGeneralInputs' name='USUARIO' readonly="readonly">
+            <input type="text" class='estilosGeneralInputs'  name='USUARIO' readonly="readonly">
             <label for="">Cedula</label>
-            <input type="text" class='estilosGeneralInputs' name='CEDULA' readonly="readonly">
+            <input type="text" class='estilosGeneralInputs' value="{{ baseDatos[0] }}" name='CEDULA' readonly="readonly">
             <label for="">Direcion</label>
-            <input type="text" class='estilosGeneralInputs' name='DIRECCION' readonly="readonly">
+            <input type="text" class='estilosGeneralInputs'  name='DIRECCION' readonly="readonly">
             <label for="">Telefono</label>
-            <input type="text" class='estilosGeneralInputs' name='TELEFONO' readonly="readonly">
+            <input type="text" class='estilosGeneralInputs'  name='TELEFONO' readonly="readonly">
             <label for="">Correo</label>
-            <input type="text" class='estilosGeneralInputs' name='CORREO' readonly="readonly">
+            <input type="text" class='estilosGeneralInputs'  name='CORREO' readonly="readonly">
             <label for="">Fecha de ingreso</label>
-            <input type="text" name=' FECHA_DE_INGRESO' readonly="readonly">
+            <input type="text" name=' FECHA_DE_INGRESO' value="{{ baseDatos[6] }}" readonly="readonly">
             <label for="">Tipo de contrato</label>
-            <input type="text" class='estilosGeneralInputs' name='TIPO_DE_CONTRATO' readonly="readonly">
+            <input type="text" class='estilosGeneralInputs' value="{{ baseDatos[8] }}"  name='TIPO_DE_CONTRATO' readonly="readonly">
             <label for="">Cargo</label>
-            <input type="text" class='estilosGeneralInputs' name='CARGO' readonly="readonly">
+            <input type="text" class='estilosGeneralInputs'  value="{{ baseDatos[3] }}" name='CARGO' readonly="readonly">
             <label for="">Dependencia</label>
-            <input type="text" class='estilosGeneralInputs' name='DEPENDENCIA' readonly="readonly">
+            <input type="text" class='estilosGeneralInputs' value="{{ baseDatos[9] }}" name='DEPENDENCIA' readonly="readonly">
             <label for="">Salario</label>
-            <input type="text" class='estilosGeneralInputs' name='SALARIO' readonly="readonly">
+            <input type="text" class='estilosGeneralInputs' value="{{ baseDatos[4] }}"name='SALARIO' readonly="readonly">
         </form>
     </div>
     {% endblock %}
