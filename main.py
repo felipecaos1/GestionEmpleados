@@ -155,13 +155,17 @@ def crear_empleado ():
 @app.route('/lista-empleados',methods=["GET"])
 def listarEmpleados():
     baseDatos2={}
-    global id_user
+    global id_user, tipo_user
     try:
 
         with sqlite3.connect("SGE") as con:
                     #con.row_factory=sqlite3.Row
                     cur= con.cursor()
-                    cur.execute("select * from empleado where cedula!=?",[id_user])
+                    print(id_user)
+                    if tipo_user==2:
+                        cur.execute("select * from empleado where cedula!=? and rol_id=1",[id_user])
+                    else:
+                        cur.execute("select * from empleado where cedula!=?",[id_user])
                     lista=cur.fetchall()
                     j=0
                     for i in range(len(lista)):
