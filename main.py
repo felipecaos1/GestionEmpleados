@@ -20,7 +20,7 @@ tipo_user = ''
 id_user = ''
 nombre = ''
 valorId = 6
-
+session=False #verifica si esta loguiado
 #1:empleado
 #2:administrador
 #3:Superadminstrador
@@ -31,7 +31,7 @@ def login():
 
 @app.route('/ingreso', methods = ["POST"]) #aca se valida el usuario
 def ingreso():
-    global tipo_user,id_user, nombre
+    global tipo_user,id_user, nombre, session
     
     if request.method=="GET":
          return render_template("Login.html")
@@ -48,10 +48,12 @@ def ingreso():
                 print(registro)
                 if registro !=None:
                     if check_password_hash(registro[2],formContraseña):#desencripto y calido contraseña
-                         #registro2=cur.execute("select id,nombre,rol from empleado where id = ?"[registro[0]])
-                         #nombre=registro2[1]
-                         #tipo_user=registro2[2]
-                         #id_user=registro2[0]
+                        print("valida")
+                        session=True
+                        #registro2=cur.execute("select id,nombre,rol from empleado where id = ?"[registro[0]])
+                        #nombre=registro2[1]
+                        #tipo_user=registro2[2]
+                        #id_user=registro2[0]
                         return redirect('/administrador')   
         except:
             con.rollback()
@@ -62,11 +64,15 @@ def ingreso():
 @app.route('/administrador/<int:id_usuario>/',methods = ["GET"])
 @app.route('/administrador',methods = ["GET"])
 def administrador ():
-    return render_template('administrador.html',
-    tipo_user=tipo_user,
-    id_user=id_user,
-    nombre=nombre
-    )
+    global session
+    if session:
+        return render_template('administrador.html',
+        tipo_user=tipo_user,
+        id_user=id_user,
+        nombre=nombre
+        )
+    else:
+        return redirect("/")
 
 
 @app.route('/salir', methods = ["POST"])
@@ -109,33 +115,35 @@ def crear_empleado ():
     usuario= request.form['crear-usuario']
     contrasena= request.form['crear-contraseña'] 
     contra_cifrada=generate_password_hash(contrasena) #esta es la contraseña que hay que guardar en la base de datos
+   
     fechaIngreso= request.form['crear-fecha-ingreso']
     FechaTerminacion= request.form['crear-fecha-ingreso']
     Rol= request.form['tipo-rol']
-    Salario= request.form['crear-salario']
+    Salario= float(request.form['crear-salario'])
     dependencia= request.form['crear-dependencia']
     global valorId 
     global baseDatos
     if Rol == 'empleado':
-        Rol = 1
+        Rol2 = 1
         subId = 'e'+ str(valorId)
     elif Rol == 'administrador':
-        Rol= 2
+        Rol2= 2
         subId = 'a'+ str(valorId)
     else:
-        Rol = 3   
+        Rol2 = 3   
         subId = 's'+ str(valorId)
     
     # conexion a la base de datos ( por terminar) 
-    try:
-        with sqlite3.connect("SGE") as con:#conectarse a la base de dto oficial
-            cur= con.cursor()
-            cur.execute("insert into datos(id,usuario,contrasena) values (?,?,?)",(valorId,usuario,contra_cifrada))#sentencia y valores terminar 
-            con.commit()
-            valorId +=1
-            return redirect("/administrador")
+    #try:
+    with sqlite3.connect("SGE") as con:#conectarse a la base de dto oficial
+        cur= con.cursor()
+        cur.execute("insert into empleado(cedula,nombre,apellido,cargo,salario,rol_id) values (?,?,?,?,?,?)",(int(cedula),nombreU,apellido,Rol,Salario,Rol2))#sentencia y valores terminar 
+        cur.execute("insert into datos(usuario,contrasena) values(?,?)",(usuario,contra_cifrada))
+        con.commit()
+        valorId +=1
+        return redirect("/administrador")
                 
-    except:
+    #except:
         con.rollback()
 
     #baseDatos [valorId] = {'id':subId,'nombre':nombreU,'apellido':apellido,'rol':Rol}
