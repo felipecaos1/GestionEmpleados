@@ -74,3 +74,9 @@
     
 }
 
+.col-1  input{
+    background-color: rgba(241, 221, 107, 0.808);
+}
+.col-2  input{
+    background-color: rgba(241, 221, 107, 0.808);
+}
