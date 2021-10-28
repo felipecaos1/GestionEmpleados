@@ -176,7 +176,7 @@ def crear_empleado ():
         #con.rollback()
         #return redirect("/administrador")
 
-    #baseDatos [valorId] = {'id':subId,'nombre':nombreU,'apellido':apellido,'rol':Rol}
+    
     
     
 @app.route('/lista-empleados',methods=["GET"])
@@ -287,6 +287,7 @@ def eliminar_empleado (id_usuario):
 @app.route('/generar_retroalimentación/<int:id_usuario>', methods = ["POST"])
 def generar_retroalimentación (id_usuario):
     #comentario
+    global nombre
     if request.method == 'POST':
         print(id_usuario)
         fecha = request.form['Fecha']
@@ -296,13 +297,13 @@ def generar_retroalimentación (id_usuario):
         try:
             with sqlite3.connect("SGE") as con:
                 cur = con.cursor()
-                cur.execute("INSERT INTO retroalimentacion (id_empleado,retroalimentacion,puntaje,nombre_generador,fecha_de_creacion) VALUES (?,?,?,?,?)",(int(id_usuario),retroalimentacion,puntaje,"",fecha)).fetchone()
+                cur.execute("INSERT INTO retroalimentacion (id_empleado,retroalimentacion,puntaje,nombre_generador,fecha_de_creacion) VALUES (?,?,?,?,?)",(int(id_usuario),retroalimentacion,puntaje,nombre,fecha)).fetchone()
                 con.commit()
         except Exception:
             print(Exception.args[0])
             con.rollback()
-        return redirect('/lista-empleados')
-
+            return redirect('/lista-empleados')
+    return redirect('/lista-empleados')
 
 @app.route('/editar_empleado/<int:id_usuario>', methods = ["POST"])
 def editar_empleado (id_usuario):
