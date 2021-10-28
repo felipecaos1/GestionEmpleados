@@ -177,17 +177,17 @@ def crear_empleado ():
         subId = 's'+ str(valorId)
     
     # conexion a la base de datos ( por terminar) 
-    #try:
-    with sqlite3.connect("SGE") as con:#conectarse a la base de dto oficial
-        cur= con.cursor()
-        cur.execute("insert into empleado(cedula,nombre,apellido,cargo,salario,rol_id,fechainicio,fechatermino,tipocontrato,dependencia) values (?,?,?,?,?,?,?,?,?,?)",(int(cedula),nombreU,apellido,Rol,Salario,Rol2,fechaIngreso,FechaTerminacion,tipocontrato,dependencia))
-        cur.execute("insert into datos(id,usuario,contrasena) values(?,?,?)",(int(cedula),usuario,contra_cifrada))
-        con.commit()
-        return redirect("/administrador")
+    try:
+        with sqlite3.connect("SGE") as con:#conectarse a la base de dto oficial
+            cur= con.cursor()
+            cur.execute("insert into empleado(cedula,nombre,apellido,cargo,salario,rol_id,fechainicio,fechatermino,tipocontrato,dependencia) values (?,?,?,?,?,?,?,?,?,?)",(int(cedula),nombreU,apellido,Rol,Salario,Rol2,fechaIngreso,FechaTerminacion,tipocontrato,dependencia))
+            cur.execute("insert into datos(id,usuario,contrasena) values(?,?,?)",(int(cedula),usuario,contra_cifrada))
+            con.commit()
+            return redirect("/administrador")
                 
-    #except:
-        #con.rollback()
-        #return redirect("/administrador")
+    except:
+        con.rollback()
+        return redirect("/administrador")
 
     
     
@@ -328,11 +328,51 @@ def generar_retroalimentación (id_usuario):
 @app.route('/editar_empleado/<int:id_usuario>', methods = ["POST"])
 def editar_empleado (id_usuario):
     if request.method == 'POST':
-      nombre = request.form['crear-nombre']      
-      apellido = request.form['crear-apellido']
-      baseDatos[id_usuario]['nombre'] = nombre
-      baseDatos[id_usuario]['apellido'] = apellido
-      return redirect('/lista-empleados')
+        nombreU = request.form['editar-nombre']
+        apellido= request.form['editar-apellido']
+        
+        usuario= request.form['editar-usuario']
+        contrasena= request.form['editar-contraseña'] 
+        contra_cifrada=generate_password_hash(contrasena) #esta es la contraseña que hay que guardar en la base de datos
+        tipocontrato=request.form['editar-contrato']
+        fechaIngreso= request.form['editar-fecha1']
+        FechaTerminacion= request.form['editar-fecha2']
+        Rol= request.form['editar-cargo']
+        Salario= request.form['editar-salario']
+        dependencia= request.form['editar-dependencia']
+
+        if Rol == 'empleado':
+            Rol2 = 1
+            
+        elif Rol == 'administrador':
+            Rol2= 2
+            
+        else:
+            Rol2 = 3   
+            
+       # try:
+        with sqlite3.connect("SGE") as con:#conectarse a la base de dto oficial
+            cur= con.cursor()
+            cur.execute("update empleado set nombre=?,apellido=?,cargo=?,salario=?,rol_id=?,fechainicio=?,fechatermino=?,tipocontrato=?,dependencia=? where cedula=?",[nombreU,apellido,Rol,Salario,Rol2,fechaIngreso,FechaTerminacion,tipocontrato,dependencia,id_usuario])
+            con.commit()
+            print("hola")
+            print(contrasena)
+            if contrasena=="sin modificar":
+                print("entro")
+                cur.execute("update datos set usuario=? where id=?",(usuario,id_usuario))
+                con.commit()
+            else:
+                print("contra")
+                cur.execute("update datos set usuario=?,contrasena=? where id=?",(usuario,contra_cifrada,id_usuario))
+                con.commit()
+                
+            return redirect("/lista-empleados")
+                
+        #except:
+           # con.rollback()
+            #return redirect("/lista-empleados")
+    return redirect("/lista-empleados")
+        
 #HASTA ACA ORGANIZADO////////////////////////////////////////////////////////////////////////////// 
 
 if __name__ == "__main__":

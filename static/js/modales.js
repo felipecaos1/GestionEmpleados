@@ -49,12 +49,12 @@ function CargarInfoEmpleado(User) {
 }
 
 function CargarInfoEmpleadoEditar(User, key){
-    console.log(User)
+    
     let nombre =document.getElementById('EditarNombre').value = User['nombre'];
     let apellido =document.getElementById('EditarApellido').value = User['apellido']; 
     let Cedula =document.getElementById('EditarCedula').value=User["cedula"]; 
     let usuario =document.getElementById('EditarUsuario').value=User["usuario"]; 
-    let pass =document.getElementById('editarcontraseña'); 
+    let pass =document.getElementById('editarcontraseña').value="sin modificar"; 
     let fecha1=document.getElementById('editarfechaingreso').value=User["fechaingreso"];
     let fecha2=document.getElementById('editarfechasalida').value=User["fechatermino"];
     let tipocontrato=document.getElementById('tipo-contrato').value=User["tipocontrato"];
@@ -63,7 +63,7 @@ function CargarInfoEmpleadoEditar(User, key){
     let dependencia=document.getElementById('editar-dependencia').value=User["dependencia"];
 
     var formulario = document.getElementById('FormularioEditarEmpleado');
-    formulario.setAttribute('action','/editar_empleado/'+key.id);
+    formulario.setAttribute('action','/editar_empleado/'+key);
 }
 
 

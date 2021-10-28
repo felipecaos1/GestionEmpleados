@@ -34,7 +34,7 @@
             <td>{{ usuario["apellido"] }}</td>
             <td>
                 <button id="{{ usuario['cedula'] }}" onclick="CargarInfoEmpleado({{ usuario }})" class="far fa-eye ver"></button>
-                <button id="{{ usuario['cedula'] }}" onclick="CargarInfoEmpleadoEditar({{ usuario }}, this)" class="far fa-edit editar"></button>
+                <button id="{{ usuario['cedula'] }}" onclick="CargarInfoEmpleadoEditar({{ usuario }},{{ usuario['cedula'] }})" class="far fa-edit editar"></button>
                 <a id="{{ usuario['cedula'] }}" href="/eliminar_empleado/{{ usuario['cedula'] }}" class = "far fa-trash-alt eliminar " ></a> 
                 <button id="{{ usuario['cedula'] }}" onclick="CambiarRuta(this)" class=" far fa-clipboard retro"></button>
             </td>
@@ -149,37 +149,37 @@
                 <div class="col-1">
                     <div class="pares-datos">
                         <label for="">Nombre</label>
-                        <input type="text" name="crear-nombre" id="EditarNombre">
+                        <input type="text" name="editar-nombre" id="EditarNombre">
                     </div>
                     <div class="pares-datos">
                         <label for="">Apellido</label>
-                        <input type="text" name="crear-apellido" id="EditarApellido">
+                        <input type="text" name="editar-apellido" id="EditarApellido">
                     </div>
                     <div class="pares-datos">
                         <label for="">Cedula</label>
-                        <input type="text" name="crear-cedula" id="EditarCedula">
+                        <input type="text" name="editar-cedula" id="EditarCedula" readonly="readonly" style="background-color: aqua;">
                     </div>
                     <div class="pares-datos">
                         <label for="">Usuario</label>
-                        <input type="text" name="crear-usuario" id='EditarUsuario'>
+                        <input type="text" name="editar-usuario" id='EditarUsuario'>
                     </div>
                     <div class="pares-datos">
                         <label for="">Contraseña</label>
-                        <input type="password" id="editarcontraseña">
+                        <input type="password" name="editar-contraseña" id="editarcontraseña">
                     </div>
                     <div class="pares-datos">
                         <label for="">Fecha de ingreso</label>
-                        <input type="date"  id="editarfechaingreso">
+                        <input type="date" name="editar-fecha1" id="editarfechaingreso">
                     </div>
                 </div>
                 <div class="col-2">
                     <div class="pares-datos">
                         <label for="">Fecha de Termino</label>
-                        <input type="date" id="editarfechasalida">
+                        <input type="date" name="editar-fecha2" id="editarfechasalida">
                     </div>
                     <div class="pares-datos">
                         <label for="">Tipo de contrato</label>
-                        <select id="tipo-contrato">
+                        <select id="tipo-contrato" name="editar-contrato">
                             <option  value="nada">Seleccione una opcion</option>
                             <option  value="Prestacion de servicios">Prestacion de servicios</option>
                             <option value="indefinido">Indefinido</option>
@@ -187,7 +187,7 @@
                     </div>
                     <div class="pares-datos">
                         <label for="">Cargo</label>
-                        <select id="tipo-rol">
+                        <select id="tipo-rol" name="editar-cargo">
                             <option value="nada">Seleccione una opcion</option>
                             {% if tipo_user==3 %}
                             <option value="SuperAdministrador">Superadministrador</option>
@@ -198,11 +198,11 @@
                     </div>
                     <div class="pares-datos">
                         <label for="">Salaro</label>
-                        <input type="text" id="editar-salario">
+                        <input type="text" name="editar-salario" id="editar-salario">
                     </div>
                     <div class="pares-datos">
                         <label for="">Dependencia</label>
-                        <input type="text" id="editar-dependencia">
+                        <input type="text" name="editar-dependencia" id="editar-dependencia">
                     </div>
                 </div>
 
