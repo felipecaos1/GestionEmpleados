@@ -17,16 +17,16 @@
         <table id="tableRetroalimentacion">
             <tr>
                 <th>Retroalimentación</th>
+                <th>Autor</th>
                 <th>Opciones</th>
             </tr>
            
             {% for key, usuario in baseDatos.items() %}
          
             <tr>
-                <td>{{ usuario["cedula"] }}</td>
-                <td>{{ usuario["cargo"] }}</td>
-                <td>{{ usuario["nombre"] }}</td>
-                <td>{{ usuario["apellido"] }}</td>
+                <td>{{ usuario["fecha"] }}</td>
+                <td>{{ usuario["autor"] }}</td>
+               
                 <td>
                     <button class="far fa-eye retro"></button>
                     
