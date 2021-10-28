@@ -31,8 +31,7 @@
 .div-buscar{
     display: flex;
     justify-content: end;
-    border-bottom: solid 1px black;
-    border-radius: 0 0 20px 0;
+    
 }
 .div-buscar input[type="text"]{
     border: solid 1px  black;
@@ -60,7 +59,7 @@
 .titulo-2{
     border: solid 1px black;
     padding: 10px;
-    margin: 15px 0 15px 0;
+    margin: 15px 0 0 0;
     background-color: #00509d;
 }
 .titulo-2 h2{
@@ -75,13 +74,15 @@
     display: grid;
     grid-template-columns: 1fr 3fr;
 }
-.opciones{
-    border: solid 1px black;
+ .opciones{
+    border-right: solid 2px rgb(156, 156, 156); 
+
 }
+
 .carga-info{
-    border: solid 1px black;
+   
     padding: 10px;
-}
+} 
 
 .div-nombre h2{
    
@@ -90,6 +91,7 @@
 .foto{
     display: flex;
     justify-content: center;
+   
 }
 .foto img{
     width: 200px;
@@ -105,7 +107,7 @@
     
 }
 .lista-opciones .item{
-    list-style: none;
+    list-style: circle;
     margin-bottom: 10px;
 }
 .lista-opciones ul{
