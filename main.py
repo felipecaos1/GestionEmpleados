@@ -82,7 +82,11 @@ def e_retroalimentación (id_usuario):
             data = cur.execute("SELECT * FROM retroalimentacion where id_empleado=?;",[id_usuario])#sentencia  
             print(data)
             con.commit()
-            return redirect('/lista-empleados')
+            return render_template('base-Retroalimentacion.html',
+                tipo_user=tipo_user,
+                id_user=id_usuario,
+                nombre=nombre,
+                )
               
     except:
             con.rollback()
@@ -143,7 +147,6 @@ def crear_empleado ():
     usuario= request.form['crear-usuario']
     contrasena= request.form['crear-contraseña'] 
     contra_cifrada=generate_password_hash(contrasena) #esta es la contraseña que hay que guardar en la base de datos
-   
     tipocontrato=request.form['tipo-contrato']
     fechaIngreso= request.form['crear-fecha-ingreso']
     FechaTerminacion= request.form['crear-fecha-termino']
