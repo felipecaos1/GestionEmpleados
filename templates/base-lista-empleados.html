@@ -18,6 +18,7 @@
         <tr class="titulos">
 
             <th>Codigo</th>
+            <th>Cargo</th>
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Opciones</th>
@@ -28,6 +29,7 @@
      
         <tr>
             <td>{{ usuario["cedula"] }}</td>
+            <td>{{ usuario["cargo"] }}</td>
             <td>{{ usuario["nombre"] }}</td>
             <td>{{ usuario["apellido"] }}</td>
             <td>
@@ -80,49 +82,49 @@
                 <div class="col-1">
                     <div class="pares-datos">
                         <label for="">Nombre</label>
-                        <input type="text" name="crear-nombre" id="MostrarNombre" readonly="readonly">
+                        <input type="text" id="MostrarNombre" readonly="readonly">
                     </div>
                     <div class="pares-datos">
                         <label for="">Apellido</label>
-                        <input type="text" name="crear-apellido" id="Mostrarapellido"  readonly="readonly">
+                        <input type="text" id="Mostrarapellido"  readonly="readonly">
                     </div>
                     <div class="pares-datos">
                         <label for="">Cedula</label>
-                        <input type="text" id="crear-cedula"  readonly="readonly">
+                        <input type="text" id="mostrar-cedula"  readonly="readonly">
                     </div>
                     <div class="pares-datos">
                         <label for="">Usuario</label>
-                        <input type="text" id="crear-usuario"  readonly="readonly">
+                        <input type="text" id="mostrar-usuario"  readonly="readonly">
                     </div>
                     <div class="pares-datos">
                         <label for="">Contraseña</label>
-                        <input type="password" id="crear-contraseña"  readonly="readonly">
+                        <input type="password" id="mostrar-contraseña"  readonly="readonly">
                     </div>
                     <div class="pares-datos">
                         <label for="">Fecha de ingreso</label>
-
+                        <input type="text" id="mostrar-fecha-ingreso"  readonly="readonly">
                     </div>
                 </div>
                 <div class="col-2">
                     <div class="pares-datos">
                         <label for="">Fecha de Termino</label>
-
+                        <input type="text" id="mostrar-fecha-termino"  readonly="readonly">
                     </div>
                     <div class="pares-datos">
                         <label for="">Tipo de contrato</label>
-
+                        <input type="text" id="mostrar-contrato"  readonly="readonly"> 
                     </div>
                     <div class="pares-datos">
                         <label for="">Cargo</label>
-                        <input type="text" id="cargo"  readonly="readonly"> 
+                        <input type="text" id="mostrar-cargo"  readonly="readonly"> 
                     </div>
                     <div class="pares-datos">
                         <label for="">Salario</label>
-                        <input type="text" id="crear-salario"  readonly="readonly">
+                        <input type="text" id="mostrar-salario"  readonly="readonly">
                     </div>
                     <div class="pares-datos">
                         <label for="">Dependencia</label>
-                        <input type="text" name="crear-dependencia"  readonly="readonly">
+                        <input type="text" id="mostrardependencia"  readonly="readonly">
                     </div>
                 </div>
 

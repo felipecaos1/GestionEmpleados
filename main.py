@@ -6,17 +6,13 @@ from werkzeug.security import check_password_hash, generate_password_hash
 app = Flask(__name__)
 
 # creamos una "base de datos" con 3 usuarios
-baseDatos={
-    1:{'id':'e1','nombre':'Felipe','apellido':'Castro','rol':1},
-    2:{'id':'e2','nombre':'Camilo','apellido':'osorio','rol':1},
-    3:{'id':'a3','nombre':'Pepe','apellido':'cardona','rol':2},
-    4:{'id':'s4','nombre':'Maria','apellido':'perez','rol':3}
-}
-Roles={
-    "empleado":3,
-    "administrador":2,
-    "superadministrador":1
-}
+# baseDatos={
+#     1:{'id':'e1','nombre':'Felipe','apellido':'Castro','rol':1},
+#     2:{'id':'e2','nombre':'Camilo','apellido':'osorio','rol':1},
+#     3:{'id':'a3','nombre':'Pepe','apellido':'cardona','rol':2},
+#     4:{'id':'s4','nombre':'Maria','apellido':'perez','rol':3}
+# }
+
 
 retroalimentacionEmpleados ={}
 #VARIABLES
@@ -48,16 +44,14 @@ def ingreso():
             with sqlite3.connect("SGE") as con:
                 cur= con.cursor()
                 registro = cur.execute("select * from datos where usuario = ?",[formUser]).fetchone()
-                print("norml")
-                print(registro)
+            
                 if registro !=None:
-                    if check_password_hash(registro[2],formContraseña):#desencripto y calido contraseña
-                        print("valida")
+                    if check_password_hash(registro[2],formContraseña):#desencripto y calido contraseñ
                         session=True
-                        #registro2=cur.execute("select * from empleado where id = ?"[registro[0]])
-                        #nombre=registro2[1]
-                        #tipo_user=registro2[2]
-                        #id_user=registro2[0]
+                        registro2=cur.execute("select * from empleado where cedula = ?",[registro[0]]).fetchone()
+                        nombre=registro2[1]
+                        tipo_user=registro2[5]
+                        id_user=registro2[0]
                         return redirect('/administrador')   
         except:
             con.rollback()
@@ -68,8 +62,8 @@ def ingreso():
 @app.route('/administrador/<int:id_usuario>/',methods = ["GET"])
 @app.route('/administrador',methods = ["GET"])
 def administrador ():
-    global session
-    print()
+    global session, tipo_user,id_user,nombre
+    print(session)
     if session:
         return render_template('administrador.html',
         tipo_user=tipo_user,
@@ -82,8 +76,9 @@ def administrador ():
 
 @app.route('/salir', methods = ["POST"])
 def salir():
-    global tipo_user
+    global tipo_user, session
     tipo_user=0
+    session=False 
 
     return redirect('/')
 
@@ -110,11 +105,36 @@ def e_retroalimentación (id_usuario):
 
 @app.route('/e_informacionpersonal/<id_usuario>', methods = ["GET"])
 def e_informacionpersonal(id_usuario):
-    return render_template('base-info.html',
-    tipo_user=tipo_user,
-    id_user=id_usuario,
-    nombre=nombre,
-    baseDatos=baseDatos)
+    
+    try:
+
+        with sqlite3.connect("SGE") as con:
+                    #con.row_factory=sqlite3.Row
+                    cur= con.cursor()
+                   
+                    cur.execute("select * from empleado where cedula=?",[id_usuario])
+                    lista=cur.fetchone()
+                   
+                    
+                    if lista is None:
+                        return redirect("/administrador")
+                    else:
+                        return render_template('base-info.html',
+                                tipo_user=tipo_user,
+                                id_user=id_user,
+                                baseDatos=lista,
+                                nombre=nombre
+                                )
+
+    except:
+        con.rollback()
+
+    return render_template('administrador.html',
+        tipo_user=tipo_user,
+        id_user=id_user,
+        nombre=nombre
+        )    
+    
 
 @app.route('/crear_empleado', methods = ["POST"])
 def crear_empleado ():
@@ -129,49 +149,59 @@ def crear_empleado ():
    
     tipocontrato=request.form['tipo-contrato']
     fechaIngreso= request.form['crear-fecha-ingreso']
-    FechaTerminacion= request.form['crear-fecha-ingreso']
+    FechaTerminacion= request.form['crear-fecha-termino']
     Rol= request.form['tipo-rol']
     tipoContrato = request.form['tipo-contrato']
     Salario= request.form['crear-salario']
     dependencia= request.form['crear-dependencia']
-    # global valorId 
-    # global baseDatos
-    # if Rol == 'empleado':
-    #     Rol = 1
-    #     subId = 'e'+ str(valorId)
-    # elif Rol == 'administrador':
-    #     Rol= 2
-    #     subId = 'a'+ str(valorId)
-    # else:
-    #     Rol = 3   
-    #     subId = 's'+ str(valorId)
-    # baseDatos [valorId] = {'id':subId,'nombre':nombreU,'apellido':apellido,'rol':Rol}
-    # valorId +=1
+    global valorId 
+    global baseDatos
+    if Rol == 'empleado':
+        Rol2 = 1
+        subId = 'e'+ str(valorId)
+    elif Rol == 'administrador':
+        Rol2= 2
+        subId = 'a'+ str(valorId)
+    else:
+        Rol2 = 3   
+        subId = 's'+ str(valorId)
+    
+    # conexion a la base de datos ( por terminar) 
     try:
-            with sqlite3.connect("SGE") as con:
-                cur = con.cursor()
-                cur.execute("INSERT INTO datos (id,usuario,contrasena) VALUES (?,?,?)",(cedula,usuario,contra_cifrada)).fetchone()
-                cur.execute("INSERT INTO empleado (cedula,nombre,apellido,cargo,salario,rol_id,fechatermino,fechainicio,tipocontrato,dependencia) VALUES (?,?,?,?,?,?,?,?,?,?)",(cedula,nombreU,apellido,Rol,Salario,Roles[Rol],FechaTerminacion,fechaIngreso,tipoContrato,dependencia)).fetchone()
-                con.commit()
-    except Exception:
-        print(Exception.args[0])
+        with sqlite3.connect("SGE") as con:#conectarse a la base de dto oficial
+            cur= con.cursor()
+            cur.execute("insert into empleado(cedula,nombre,apellido,cargo,salario,rol_id,fechainicio,fechatermino,tipocontrato,dependencia) values (?,?,?,?,?,?,?,?,?,?)",(int(cedula),nombreU,apellido,Rol,Salario,Rol2,fechaIngreso,FechaTerminacion,tipocontrato,dependencia))#sentencia y valores terminar 
+            cur.execute("insert into datos(id,usuario,contrasena) values(?,?,?)",(int(cedula),usuario,contra_cifrada))
+            con.commit()
+            valorId +=1
+            return redirect("/administrador")
+                
+    except:
         con.rollback()
-    return redirect('/administrador')
+        return redirect("/administrador")
+
+    #baseDatos [valorId] = {'id':subId,'nombre':nombreU,'apellido':apellido,'rol':Rol}
+    
+    
 
 @app.route('/lista-empleados',methods=["GET"])
 def listarEmpleados():
     baseDatos2={}
+    global id_user, tipo_user
     try:
 
         with sqlite3.connect("SGE") as con:
                     #con.row_factory=sqlite3.Row
                     cur= con.cursor()
-                    cur.execute("select * from empleado")
+                    print(id_user)
+                    if tipo_user==2:
+                        cur.execute("select * from empleado where cedula!=? and rol_id=1",[id_user])
+                    else:
+                        cur.execute("select * from empleado where cedula!=?",[id_user])
                     lista=cur.fetchall()
-                    print(len(lista))
                     j=0
                     for i in range(len(lista)):
-                        baseDatos2 [j] = {'cedula':lista[j][0],'nombre':lista[j][1],'apellido':lista[j][2],'cargo':lista[j][3],'salario':lista[j][4]}
+                        baseDatos2 [j] = {'cedula':lista[j][0],'nombre':lista[j][1],'apellido':lista[j][2],'cargo':lista[j][3],'salario':lista[j][4],'fechaingreso':lista[j][6],'fechatermino':lista[j][7],'tipocontrato':lista[j][8],'dependencia':lista[j][9]}
                         j=j+1
                    
                     if lista is None:
@@ -187,17 +217,7 @@ def listarEmpleados():
     except:
         con.rollback()
 
-        return redirect("/administrador")       
-    # Lista = {}
-    # if tipo_user == 2:
-    #     for Actusuario in baseDatos:
-    #         if nombre != baseDatos.get(Actusuario).get('nombre') and baseDatos.get(Actusuario).get('rol') != 3:
-    #             Lista[Actusuario] = baseDatos.get(Actusuario)
-    # else:
-    #     for Actusuario in baseDatos:
-    #         if nombre != baseDatos.get(Actusuario).get('nombre'):
-    #             Lista[Actusuario] = baseDatos.get(Actusuario)
-            
+        return redirect("/administrador")  
     
 
 @app.route('/buscar_empleado', methods = ["POST"])
@@ -222,6 +242,8 @@ def eliminar_empleado (id_usuario):
         with sqlite3.connect("SGE") as con:
             cur= con.cursor()
             cur.execute("delete from empleado where cedula=?;",[id_usuario])#sentencia  
+            con.commit()
+            cur.execute("delete from datos where id=?;",[id_usuario])
             con.commit()
             return redirect('/lista-empleados')
               

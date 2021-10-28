@@ -22,7 +22,7 @@ closeRetro.addEventListener('click',()=>{
 function CambiarRuta(botom){
     var  today = new Date();
     var m = today.getMonth() + 1;
-    fechaActual.value = today.getDate()+'/'+m+'/'+today.getFullYear();
+    fechaActual.value = today.getFullYear()+'/'+m+'/'+today.getDate();
     var formulario = document.getElementById('formularioRetroalimentacion');
     formulario.setAttribute('action','/generar_retroalimentación/'+botom.id);  
 }

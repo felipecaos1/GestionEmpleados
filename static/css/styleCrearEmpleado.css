@@ -74,3 +74,9 @@
     
 }
 
+#modal-ver-empleado .col-1  input{
+    background-color: rgba(241, 221, 107, 0.808);
+}
+#modal-ver-empleado .col-2  input{
+    background-color: rgba(241, 221, 107, 0.808);
+}

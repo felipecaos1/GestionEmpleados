@@ -20,3 +20,9 @@
     height: 40px;
     border-bottom: solid 1px gray;
 }
+button{
+    width: 10px;
+    height: 10px;
+    background-color: black;
+    border: solid black;
+}
