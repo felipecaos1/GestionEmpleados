@@ -54,7 +54,7 @@ def ingreso():
 @app.route('/administrador',methods = ["GET"])
 def administrador ():
     global session, tipo_user,id_user,nombre
-    print(session)
+  
     if session:
         return render_template('administrador.html',
         tipo_user=tipo_user,
@@ -81,7 +81,7 @@ def e_retroalimentación (id_usuario):
         with sqlite3.connect("SGE") as con:
             cur= con.cursor()
             data = cur.execute("SELECT * FROM retroalimentacion where id_empleado=?;",[id_usuario]).fetchall()#sentencia  
-            print(data)
+          
             con.commit()
 
             if data is None:
