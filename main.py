@@ -224,7 +224,7 @@ def buscar_empleado ():
             cur= con.cursor()
            
             if tipo_user==2:
-                cur.execute("select * from empleado,datos where nombre=?;",(buscar))
+                cur.execute("select * from empleado join datos where cedula=? and id=?;",(buscar,buscar))
                 lista=cur.fetchall()
                 print(lista)
                 # cur.execute("select * from datos where id!=? ",[id_user])
