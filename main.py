@@ -100,38 +100,41 @@ def e_retroalimentación (id_usuario):
 @app.route('/e_informacionpersonal/<id_usuario>', methods = ["GET"])
 def e_informacionpersonal(id_usuario):
     usuario=[]
-    #try:
+    global session
+    if session:
+        try:
 
-    with sqlite3.connect("SGE") as con:
-                #con.row_factory=sqlite3.Row
-                cur= con.cursor()
-                
-                cur.execute("select * from empleado where cedula=?",[id_usuario])
-                lista=cur.fetchone()
-                cur.execute("select * from datos where id=?",[id_usuario])
-                lista2=cur.fetchone()
-                
-                if lista is None:
-                    return redirect("/administrador")
-                else:
-                    return render_template('base-info.html',
-                            tipo_user=tipo_user,
-                            id_user=id_user,
-                            baseDatos=lista,
-                            nombre=nombre,
-                            usuario=lista2[1]
+            with sqlite3.connect("SGE") as con:
+                        #con.row_factory=sqlite3.Row
+                        cur= con.cursor()
+                        
+                        cur.execute("select * from empleado where cedula=?",[id_usuario])
+                        lista=cur.fetchone()
+                        cur.execute("select * from datos where id=?",[id_usuario])
+                        lista2=cur.fetchone()
+                        
+                        if lista is None:
+                            return redirect("/administrador")
+                        else:
+                            return render_template('base-info.html',
+                                    tipo_user=tipo_user,
+                                    id_user=id_user,
+                                    baseDatos=lista,
+                                    nombre=nombre,
+                                    usuario=lista2[1]
 
-                            )
+                                    )
 
-    #except:
-        #con.rollback()
+        except:
+            con.rollback()
 
-    return render_template('administrador.html',
-        tipo_user=tipo_user,
-        id_user=id_user,
-        nombre=nombre
-        )    
-    
+        return render_template('administrador.html',
+            tipo_user=tipo_user,
+            id_user=id_user,
+            nombre=nombre
+            )    
+    else:
+        return redirect("/")    
 
 @app.route('/crear_empleado', methods = ["POST"])
 def crear_empleado ():
@@ -192,9 +195,11 @@ def listarEmpleados():
                     print(id_user)
                     if tipo_user==2:
                         cur.execute("select * from empleado where cedula!=? and rol_id=1",[id_user])
+                        lista=cur.fetchall()
                     else:
                         cur.execute("select * from empleado where cedula!=?",[id_user])
-                    lista=cur.fetchall()
+                        lista=cur.fetchall()
+                        
                     j=0
                     for i in range(len(lista)):
                         baseDatos2 [j] = {'cedula':lista[j][0],'nombre':lista[j][1],'apellido':lista[j][2],'cargo':lista[j][3],'salario':lista[j][4],'fechaingreso':lista[j][6],'fechatermino':lista[j][7],'tipocontrato':lista[j][8],'dependencia':lista[j][9]}
