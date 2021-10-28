@@ -1,7 +1,7 @@
 from flask import Flask, render_template,redirect, request
 import sqlite3
 import os 
-from werkzeug.security import DEFAULT_PBKDF2_ITERATIONS, check_password_hash, generate_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 
@@ -237,7 +237,7 @@ def buscar_empleado ():
                 # cur.execute("select * from datos where id!=? ",[id_user])
                 # datos=cur.fetchall()
             else:
-                cur.execute("select * from empleado join datos where nombre=? and nombres=? and cedula!=?;" ,(buscar,buscar, id_user))
+                cur.execute()
                 lista=cur.fetchall()
                 print(lista)
                 # cur.execute("select * from datos where id!=?",[id_user])
