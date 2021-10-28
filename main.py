@@ -231,8 +231,6 @@ def listarEmpleados():
         con.rollback()
         return redirect("/administrador")  
 
-    
-    
 
 @app.route('/buscar_empleado', methods = ["POST"])
 def buscar_empleado ():
@@ -290,6 +288,8 @@ def eliminar_empleado (id_usuario):
                 cur.execute("delete from empleado where cedula=?;",[id_usuario])#sentencia  
                 con.commit()
                 cur.execute("delete from datos where id=?;",[id_usuario])
+                con.commit()
+                cur.execute("delete from retroalimentacion where id_empleado=?;",[id_usuario])
                 con.commit()
                 return redirect('/lista-empleados')
                 
