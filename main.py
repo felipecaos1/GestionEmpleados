@@ -5,15 +5,6 @@ from werkzeug.security import DEFAULT_PBKDF2_ITERATIONS, check_password_hash, ge
 
 app = Flask(__name__)
 
-# creamos una "base de datos" con 3 usuarios
-# baseDatos={
-#     1:{'id':'e1','nombre':'Felipe','apellido':'Castro','rol':1},
-#     2:{'id':'e2','nombre':'Camilo','apellido':'osorio','rol':1},
-#     3:{'id':'a3','nombre':'Pepe','apellido':'cardona','rol':2},
-#     4:{'id':'s4','nombre':'Maria','apellido':'perez','rol':3}
-# }
-
-
 retroalimentacionEmpleados ={}
 #VARIABLES
 tipo_user = ''
@@ -59,7 +50,7 @@ def ingreso():
     return redirect('/')
    
 
-@app.route('/administrador/<int:id_usuario>/',methods = ["GET"])
+# @app.route('/administrador/<int:id_usuario>/',methods = ["GET"])
 @app.route('/administrador',methods = ["GET"])
 def administrador ():
     global session, tipo_user,id_user,nombre
