@@ -236,7 +236,7 @@ def buscar_empleado ():
                 # cur.execute("select * from datos where id!=? ",[id_user])
                 # datos=cur.fetchall()
             else:
-                cur.execute()
+                cur.execute("select * from empleado join datos where cedula=? and id=? and cedula!=?;",(buscar,buscar,id_user))
                 lista=cur.fetchall()
                 print(lista)
                 # cur.execute("select * from datos where id!=?",[id_user])
@@ -247,7 +247,7 @@ def buscar_empleado ():
             else:
                 j=0
                 for i in range(len(lista)):
-                    basedatos3 [j] = {'cedula':lista[j][0],'nombre':lista[j][1],'apellido':lista[j][2],'cargo':lista[j][3],'salario':lista[j][4],'fechaingreso':lista[j][6],'fechatermino':lista[j][7],'tipocontrato':lista[j][8],'dependencia':lista[j][9]}
+                    basedatos3 [j] = {'cedula':lista[j][0],'nombre':lista[j][1],'apellido':lista[j][2],'cargo':lista[j][3],'salario':lista[j][4],'fechaingreso':lista[j][6],'fechatermino':lista[j][7],'tipocontrato':lista[j][8],'dependencia':lista[j][9],"usuario":lista[j][11]}
                     j=j+1
                 return render_template('base-lista-empleados.html',
                         tipo_user=tipo_user,
