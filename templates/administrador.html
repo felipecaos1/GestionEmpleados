@@ -39,7 +39,7 @@
             {% if tipo_user!=1 %}
             <form action="/buscar_empleado" method="POST">
                 {{ csrf_token }}
-                <input type="text" placeholder="Buscar" name="buscar">
+                <input type="text" placeholder="Buscar por cédula" name="buscar">
                 <input type="submit" value="Buscar" class="btn">
             </form>
 
@@ -128,7 +128,7 @@
                             <label for="">Tipo de contrato</label>
                             <select name="tipo-contrato" >
                                 <option value="nada">Seleccione una opcion</option>
-                                <option value="Pservicios">Prestacion de servicios</option>
+                                <option value="Prestacion de servicios">Prestacion de servicios</option>
                                 <option value="indefinido">Indefinido</option>
                             </select>
                         </div>

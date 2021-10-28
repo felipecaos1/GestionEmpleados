@@ -14,26 +14,34 @@
 
     <table id="listaempleados">
         <tr class="titulos">
-            
+
             <th>Codigo</th>
+            <th>Cargo</th>
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Opciones</th>
-            
+
         </tr>
+       
+        {% for key, usuario in baseDatos.items() %}
+     
         <tr>
-            <td>{{baseDatos['id'] }}</td>
-            <td>{{baseDatos['nombre']}}</td>
-            <td>{{ baseDatos['apellido']}}</td>
+            <td>{{ usuario["cedula"] }}</td>
+            <td>{{ usuario["cargo"] }}</td>
+            <td>{{ usuario["nombre"] }}</td>
+            <td>{{ usuario["apellido"] }}</td>
             <td>
-                <button id="{{ key }}" onclick="CargarInfoEmpleado({{ baseDatos }})" class="far fa-eye ver"></button>
-                <button id="{{ key }}" onclick="CargarInfoEmpleadoEditar({{ baseDatos }},this)" class="far fa-edit editar"></button>
-                <a id="{{ key }}" href="/eliminar_empleado/{{ key }}" class = "far fa-trash-alt eliminar " ></a> 
-                <button id="{{ key }}" onclick="CambiarRuta(this)" class=" far fa-clipboard retro"></button>
+                <button id="{{ usuario['cedula'] }}" onclick="CargarInfoEmpleado({{ usuario }})" class="far fa-eye ver"></button>
+                <button id="{{ usuario['cedula'] }}" onclick="CargarInfoEmpleadoEditar({{ usuario }}, this)" class="far fa-edit editar"></button>
+                <a id="{{ usuario['cedula'] }}" href="/eliminar_empleado/{{ usuario['cedula'] }}" class = "far fa-trash-alt eliminar " ></a> 
+                <button id="{{ usuario['cedula'] }}" onclick="CambiarRuta(this)" class=" far fa-clipboard retro"></button>
             </td>
         </tr>
-        
-    </table>  
+
+        {% endfor %}
+    </table>
+    
+   
      <section class="modal-retro">
         <div class="ventana-crear-retroalimentacion">
             <div class="div-title">

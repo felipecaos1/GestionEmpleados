@@ -11,17 +11,18 @@
             <label for="">Apellido</label>
             <input type="text" class='estilosGeneralInputs' value="{{ baseDatos[2] }}" name='APELLIDO' readonly="readonly">
             <label for="">Usuario</label>
-            <input type="text" class='estilosGeneralInputs'  name='USUARIO' readonly="readonly">
+            <input type="text" class='estilosGeneralInputs'  name='USUARIO' value="{{ usuario }}" readonly="readonly">
             <label for="">Cedula</label>
             <input type="text" class='estilosGeneralInputs' value="{{ baseDatos[0] }}" name='CEDULA' readonly="readonly">
-            <label for="">Direcion</label>
-            <input type="text" class='estilosGeneralInputs'  name='DIRECCION' readonly="readonly">
-            <label for="">Telefono</label>
-            <input type="text" class='estilosGeneralInputs'  name='TELEFONO' readonly="readonly">
-            <label for="">Correo</label>
-            <input type="text" class='estilosGeneralInputs'  name='CORREO' readonly="readonly">
+            
+            <!-- <label for="">Telefono</label> -->
+            <!-- <input type="text" class='estilosGeneralInputs'  name='TELEFONO' readonly="readonly">
+            <label for="">Correo</label> -->
+            <!-- <input type="text" class='estilosGeneralInputs'  name='CORREO' readonly="readonly"> -->
             <label for="">Fecha de ingreso</label>
             <input type="text" name=' FECHA_DE_INGRESO' value="{{ baseDatos[6] }}" readonly="readonly">
+            <label for="">Fechas de Terminación</label>
+            <input type="text" class='estilosGeneralInputs'  name='fechaterminacion'  value="{{ baseDatos[7] }}" readonly="readonly">
             <label for="">Tipo de contrato</label>
             <input type="text" class='estilosGeneralInputs' value="{{ baseDatos[8] }}"  name='TIPO_DE_CONTRATO' readonly="readonly">
             <label for="">Cargo</label>
