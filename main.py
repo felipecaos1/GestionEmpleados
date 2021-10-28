@@ -160,8 +160,8 @@ def crear_empleado ():
     try:
         with sqlite3.connect("SGE") as con:#conectarse a la base de dto oficial
             cur= con.cursor()
-            cur.execute("insert into empleado(cedula,nombre,apellido,cargo,salario,rol_id,fechainicio,fechatermino,tipocontrato,dependencia) values (?,?,?,?,?,?,?,?,?,?)",(int(cedula),nombreU,apellido,Rol,Salario,Rol2,fechaIngreso,FechaTerminacion,tipocontrato,dependencia))#sentencia y valores terminar 
-            cur.execute("insert into datos(id,usuario,contrasena) values(?,?,?)",(int(cedula),usuario,contra_cifrada))
+            cur.execute("insert into empleado(cedula,nombre,apellido,cargo,salario,rol_id,fechainicio,fechatermino,tipocontrato,dependencia) values (?,?,?,?,?,?,?,?,?,?)",(int(cedula),nombreU,apellido,Rol,Salario,Rol2,fechaIngreso,FechaTerminacion,tipocontrato,dependencia))
+            cur.execute("insert into datos(id,usuario,contrasena,nombre) values(?,?,?,?)",(int(cedula),usuario,contra_cifrada,nombreU))
             con.commit()
             valorId +=1
             return redirect("/administrador")
@@ -173,7 +173,6 @@ def crear_empleado ():
     #baseDatos [valorId] = {'id':subId,'nombre':nombreU,'apellido':apellido,'rol':Rol}
     
     
-
 @app.route('/lista-empleados',methods=["GET"])
 def listarEmpleados():
     baseDatos2={}
@@ -218,10 +217,41 @@ def listarEmpleados():
 @app.route('/buscar_empleado', methods = ["POST"])
 def buscar_empleado ():
     buscar=request.form['buscar']
-    try:
-        base=baseDatos[int(buscar)]
-    except:
-        pass
+    basedatos3={}
+    #try:
+    with sqlite3.connect("SGE") as con:
+            #con.row_factory=sqlite3.Row
+            cur= con.cursor()
+           
+            if tipo_user==2:
+                cur.execute("select * from empleado,datos where nombre=?;",(buscar))
+                lista=cur.fetchall()
+                print(lista)
+                # cur.execute("select * from datos where id!=? ",[id_user])
+                # datos=cur.fetchall()
+            else:
+                cur.execute("select * from empleado join datos where nombre=? and nombres=? and cedula!=?;" ,(buscar,buscar, id_user))
+                lista=cur.fetchall()
+                print(lista)
+                # cur.execute("select * from datos where id!=?",[id_user])
+                # datos=cur.fetchall()
+            
+            if lista is None :
+                return redirect("/administrador")
+            else:
+                j=0
+                for i in range(len(lista)):
+                    basedatos3 [j] = {'cedula':lista[j][0],'nombre':lista[j][1],'apellido':lista[j][2],'cargo':lista[j][3],'salario':lista[j][4],'fechaingreso':lista[j][6],'fechatermino':lista[j][7],'tipocontrato':lista[j][8],'dependencia':lista[j][9]}
+                    j=j+1
+                return render_template('base-lista-empleados.html',
+                        tipo_user=tipo_user,
+                        id_user=id_user,
+                        baseDatos=basedatos3,
+                        nombre=nombre
+                        )
+
+    #except:
+        #pass
     
     return render_template('base-ResultadosBusqueda.html',
     tipo_user=tipo_user,
