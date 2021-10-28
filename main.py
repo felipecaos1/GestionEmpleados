@@ -1,7 +1,7 @@
 from flask import Flask, render_template,redirect, request
 import sqlite3
 import os 
-from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import DEFAULT_PBKDF2_ITERATIONS, check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 
@@ -187,38 +187,41 @@ def crear_empleado ():
 def listarEmpleados():
     baseDatos2={}
     global id_user, tipo_user
-    try:
+    #try:
 
-        with sqlite3.connect("SGE") as con:
-                    #con.row_factory=sqlite3.Row
-                    cur= con.cursor()
-                    print(id_user)
-                    if tipo_user==2:
-                        cur.execute("select * from empleado where cedula!=? and rol_id=1",[id_user])
-                        lista=cur.fetchall()
-                    else:
-                        cur.execute("select * from empleado where cedula!=?",[id_user])
-                        lista=cur.fetchall()
-                        
+    with sqlite3.connect("SGE") as con:
+                #con.row_factory=sqlite3.Row
+                cur= con.cursor()
+                print(id_user)
+                if tipo_user==2:
+                    cur.execute("select * from empleado where cedula!=? and rol_id=1",[id_user])
+                    lista=cur.fetchall()
+                    cur.execute("select * from datos where id!=? ",[id_user])
+                    datos=cur.fetchall()
+                else:
+                    cur.execute("select * from empleado where cedula!=?",[id_user])
+                    lista=cur.fetchall()
+                    cur.execute("select * from datos where id!=?",[id_user])
+                    datos=cur.fetchall()
+                
+                if lista is None:
+                    return redirect("/administrador")
+                else:
                     j=0
                     for i in range(len(lista)):
-                        baseDatos2 [j] = {'cedula':lista[j][0],'nombre':lista[j][1],'apellido':lista[j][2],'cargo':lista[j][3],'salario':lista[j][4],'fechaingreso':lista[j][6],'fechatermino':lista[j][7],'tipocontrato':lista[j][8],'dependencia':lista[j][9]}
+                        baseDatos2 [j] = {'cedula':lista[j][0],'nombre':lista[j][1],'apellido':lista[j][2],'cargo':lista[j][3],'salario':lista[j][4],'fechaingreso':lista[j][6],'fechatermino':lista[j][7],'tipocontrato':lista[j][8],'dependencia':lista[j][9],"usuario":datos[j][1]}
                         j=j+1
-                   
-                    if lista is None:
-                        return redirect("/administrador")
-                    else:
-                        return render_template('base-lista-empleados.html',
-                                tipo_user=tipo_user,
-                                id_user=id_user,
-                                baseDatos=baseDatos2,
-                                nombre=nombre
-                                )
+                    return render_template('base-lista-empleados.html',
+                            tipo_user=tipo_user,
+                            id_user=id_user,
+                            baseDatos=baseDatos2,
+                            nombre=nombre
+                            )
 
-    except:
-        con.rollback()
+    #except:
+        #con.rollback()
 
-        return redirect("/administrador")  
+    return redirect("/administrador")  
     
 
 @app.route('/buscar_empleado', methods = ["POST"])

@@ -36,7 +36,7 @@ function CargarInfoEmpleado(User) {
     let nombre =document.getElementById('MostrarNombre').value = User["nombre"];
     let apellido =document.getElementById('Mostrarapellido').value=User["apellido"]; 
     let Cedula =document.getElementById('mostrar-cedula').value=User["cedula"];
-    let usuario =document.getElementById('mostrar-usuario'); 
+    let usuario=document.getElementById('mostrar-usuario').value=User["usuario"];
     let pass =document.getElementById('mostrar-contraseña'); 
     let cargo =document.getElementById('mostrar-cargo').value=User["cargo"]; 
     let salario=document.getElementById('mostrar-salario').value=User["salario"];
@@ -44,6 +44,8 @@ function CargarInfoEmpleado(User) {
     let fecha2=document.getElementById('mostrar-fecha-termino').value=User["fechatermino"];
     let contrato=document.getElementById('mostrar-contrato').value=User["tipocontrato"];
     let dependencia=document.getElementById('mostrardependencia').value=User["dependencia"];
+    
+    
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 
