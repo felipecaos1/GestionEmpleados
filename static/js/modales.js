@@ -32,11 +32,14 @@ closever.addEventListener('click',()=>{
 })
 
 function CargarInfoEmpleado(User) {
-    let nombre =document.getElementById('MostrarNombre').value = User['nombre'];
-    let apellido =document.getElementById('Mostrarapellido').value = User['apellido']; 
-    let Cedula =document.getElementById('crear-cedula'); 
+    console.log(User)
+    let nombre =document.getElementById('MostrarNombre').value = User["nombre"];
+    let apellido =document.getElementById('Mostrarapellido').value=User["apellido"]; 
+    let Cedula =document.getElementById('crear-cedula').value=User["cedula"];
     let usuario =document.getElementById('crear-usuario'); 
     let pass =document.getElementById('crear-contraseña'); 
+    let cargo =document.getElementById('cargo').value=User["cargo"]; 
+    let salario=document.getElementById('crear-salario').value=User["salario"]
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 
