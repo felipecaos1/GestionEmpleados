@@ -280,6 +280,7 @@ def eliminar_empleado (id_usuario):
 
 @app.route('/generar_retroalimentación/<int:id_usuario>', methods = ["POST"])
 def generar_retroalimentación (id_usuario):
+    #comentario
     if request.method == 'POST':
         global retroalimentacionEmpleados
         fecha = request.form['Fecha']
