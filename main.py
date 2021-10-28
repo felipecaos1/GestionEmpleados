@@ -99,29 +99,32 @@ def e_retroalimentación (id_usuario):
 
 @app.route('/e_informacionpersonal/<id_usuario>', methods = ["GET"])
 def e_informacionpersonal(id_usuario):
-    
-    try:
+    usuario=[]
+    #try:
 
-        with sqlite3.connect("SGE") as con:
-                    #con.row_factory=sqlite3.Row
-                    cur= con.cursor()
-                   
-                    cur.execute("select * from empleado where cedula=?",[id_usuario])
-                    lista=cur.fetchone()
-                   
-                    
-                    if lista is None:
-                        return redirect("/administrador")
-                    else:
-                        return render_template('base-info.html',
-                                tipo_user=tipo_user,
-                                id_user=id_user,
-                                baseDatos=lista,
-                                nombre=nombre
-                                )
+    with sqlite3.connect("SGE") as con:
+                #con.row_factory=sqlite3.Row
+                cur= con.cursor()
+                
+                cur.execute("select * from empleado where cedula=?",[id_usuario])
+                lista=cur.fetchone()
+                cur.execute("select * from datos where id=?",[id_usuario])
+                lista2=cur.fetchone()
+                
+                if lista is None:
+                    return redirect("/administrador")
+                else:
+                    return render_template('base-info.html',
+                            tipo_user=tipo_user,
+                            id_user=id_user,
+                            baseDatos=lista,
+                            nombre=nombre,
+                            usuario=lista2[1]
 
-    except:
-        con.rollback()
+                            )
+
+    #except:
+        #con.rollback()
 
     return render_template('administrador.html',
         tipo_user=tipo_user,
