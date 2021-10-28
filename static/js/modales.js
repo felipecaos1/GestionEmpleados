@@ -47,6 +47,14 @@ function CargarInfoEmpleado(User) {
     
     
 }
+
+function CargarRetro(User) {
+    let Autor =document.getElementById('Autoramostrar').value = User["autor"];
+    let fecha1=document.getElementById('fechamostrar').value=User["fecha"];
+    let retro =document.getElementById('retroalimentacion-text').value=User["retro"];
+    let puntaje =document.getElementById('puntaje').value=User["puntaje"];
+    
+}
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 var editar=document.getElementsByClassName("editar");

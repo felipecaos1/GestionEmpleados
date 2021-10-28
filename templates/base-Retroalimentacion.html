@@ -28,8 +28,7 @@
                 <td>{{ usuario["autor"] }}</td>
                
                 <td>
-                    <button class="far fa-eye retro"></button>
-                    
+                    <button onclick=" CargarRetro({{ usuario }})" class="far fa-eye retro"></button>   
                 </td>
             </tr>
     
@@ -40,28 +39,32 @@
     <section class="modal-retro">
         <div class="ventana-crear-retroalimentacion">
             <div class="div-title">
-                <h1>Ver Retroalimentación</h1>
+                <h1>Retroalimentación</h1>
             </div>
-            <form method="POST" id="">
+            
                 <div class="col-12">
                     <div class="pares-datos2">
+                        <label for="">Autor</label>
+                        <input for=""  id="Autoramostrar" >
+                    </div>
+                    <div class="pares-datos2">
                         <label for="">Fecha</label>
-                        <input for="" name='Fecha' id="fechaActual" >
+                        <input for="" name='Fecha' id="fechamostrar" >
                     </div>
                     <div class="pares-datos2">
                         <label for="">Retroalimentación</label>
                         <br>
-                        <textarea name="retroalimentacion-text" cols="30" rows="10"></textarea>
+                        <textarea id="retroalimentacion-text" cols="30" rows="10"></textarea>
                     </div>
                     <div class="pares-datos2">
                         <label for="">Puntaje</label>
-                        <input type="text" name="puntaje">
+                        <input type="text" id="puntaje">
                     </div>
                     <div class="botones-finales2">
-                        <input type="reset" value="Cancelar" class="btn-cancelar2 cancelar-retro">
+                        <input type="reset" value="Cerrar" class="btn-cancelar2 cancelar-retro">
 
                     </div>
-            </form>
+           
         </div>
     </section>
     {% endblock %}
