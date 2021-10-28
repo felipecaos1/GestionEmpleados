@@ -148,7 +148,7 @@ def crear_empleado ():
     fechaIngreso= request.form['crear-fecha-ingreso']
     FechaTerminacion= request.form['crear-fecha-termino']
     Rol= request.form['tipo-rol']
-    tipoContrato = request.form['tipo-contrato']
+    
     Salario= request.form['crear-salario']
     dependencia= request.form['crear-dependencia']
     global valorId 
@@ -164,18 +164,17 @@ def crear_empleado ():
         subId = 's'+ str(valorId)
     
     # conexion a la base de datos ( por terminar) 
-    try:
-        with sqlite3.connect("SGE") as con:#conectarse a la base de dto oficial
-            cur= con.cursor()
-            cur.execute("insert into empleado(cedula,nombre,apellido,cargo,salario,rol_id,fechainicio,fechatermino,tipocontrato,dependencia) values (?,?,?,?,?,?,?,?,?,?)",(int(cedula),nombreU,apellido,Rol,Salario,Rol2,fechaIngreso,FechaTerminacion,tipocontrato,dependencia))
-            cur.execute("insert into datos(id,usuario,contrasena,nombre) values(?,?,?,?)",(int(cedula),usuario,contra_cifrada,nombreU))
-            con.commit()
-            valorId +=1
-            return redirect("/administrador")
-                
-    except:
-        con.rollback()
+    #try:
+    with sqlite3.connect("SGE") as con:#conectarse a la base de dto oficial
+        cur= con.cursor()
+        cur.execute("insert into empleado(cedula,nombre,apellido,cargo,salario,rol_id,fechainicio,fechatermino,tipocontrato,dependencia) values (?,?,?,?,?,?,?,?,?,?)",(int(cedula),nombreU,apellido,Rol,Salario,Rol2,fechaIngreso,FechaTerminacion,tipocontrato,dependencia))
+        cur.execute("insert into datos(id,usuario,contrasena) values(?,?,?)",(int(cedula),usuario,contra_cifrada))
+        con.commit()
         return redirect("/administrador")
+                
+    #except:
+        #con.rollback()
+        #return redirect("/administrador")
 
     #baseDatos [valorId] = {'id':subId,'nombre':nombreU,'apellido':apellido,'rol':Rol}
     
