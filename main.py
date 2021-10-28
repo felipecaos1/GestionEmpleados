@@ -76,17 +76,27 @@ def salir():
 
 @app.route('/e_retroalimentación/<id_usuario>', methods = ["GET"])
 def e_retroalimentación (id_usuario):
+    baseDatos4={}
     try:
         with sqlite3.connect("SGE") as con:
             cur= con.cursor()
-            data = cur.execute("SELECT * FROM retroalimentacion where id_empleado=?;",[id_usuario])#sentencia  
+            data = cur.execute("SELECT * FROM retroalimentacion where id_empleado=?;",[id_usuario]).fetchall()#sentencia  
             print(data)
             con.commit()
-            return render_template('base-Retroalimentacion.html',
-                tipo_user=tipo_user,
-                id_user=id_usuario,
-                nombre=nombre,
-                )
+
+            if data is None:
+                return redirect("/administrador")
+            else:
+                j=0
+                for i in range(len(data)):
+                    baseDatos4 [j] = {'id':data[j][0],'retro':data[j][2],'fecha':data[j][5],'puntaje':data[j][3],'autor':data[j][4]}
+                    j=j+1
+                return render_template('base-Retroalimentacion.html',
+                        tipo_user=tipo_user,
+                        id_user=id_user,
+                        baseDatos=baseDatos4,
+                        nombre=nombre
+                        )
               
     except:
             con.rollback()
@@ -272,41 +282,48 @@ def buscar_empleado ():
 @app.route('/eliminar_empleado/<int:id_usuario>', methods = ["GET", "POST"])
 def eliminar_empleado (id_usuario):
     #recibir el id del empleado donde se presiono eliminar para bucarlo en la base y eliminarlo 
-    try:
-        with sqlite3.connect("SGE") as con:
-            cur= con.cursor()
-            cur.execute("delete from empleado where cedula=?;",[id_usuario])#sentencia  
-            con.commit()
-            cur.execute("delete from datos where id=?;",[id_usuario])
-            con.commit()
-            return redirect('/lista-empleados')
-              
-    except:
-            con.rollback()
-    
-    return redirect('/lista-empleados')
+    global session
+    if session:
+        try:
+            with sqlite3.connect("SGE") as con:
+                cur= con.cursor()
+                cur.execute("delete from empleado where cedula=?;",[id_usuario])#sentencia  
+                con.commit()
+                cur.execute("delete from datos where id=?;",[id_usuario])
+                con.commit()
+                return redirect('/lista-empleados')
+                
+        except:
+                con.rollback()
+        
+        return redirect('/lista-empleados')
+    else:
+        return redirect("/")
 
 
 @app.route('/generar_retroalimentación/<int:id_usuario>', methods = ["POST"])
 def generar_retroalimentación (id_usuario):
     #comentario
-    global nombre
-    if request.method == 'POST':
-        print(id_usuario)
-        fecha = request.form['Fecha']
-        fecha = fecha.replace("/", "-")
-        retroalimentacion= request.form['retroalimentacion-text']
-        puntaje = float(request.form['puntaje'])
-        try:
-            with sqlite3.connect("SGE") as con:
-                cur = con.cursor()
-                cur.execute("INSERT INTO retroalimentacion (id_empleado,retroalimentacion,puntaje,nombre_generador,fecha_de_creacion) VALUES (?,?,?,?,?)",(int(id_usuario),retroalimentacion,puntaje,nombre,fecha)).fetchone()
-                con.commit()
-        except Exception:
-            print(Exception.args[0])
-            con.rollback()
-            return redirect('/lista-empleados')
-    return redirect('/lista-empleados')
+    global nombre,session
+    if session:
+        if request.method == 'POST':
+            print(id_usuario)
+            fecha = request.form['Fecha']
+            fecha = fecha.replace("/", "-")
+            retroalimentacion= request.form['retroalimentacion-text']
+            puntaje = float(request.form['puntaje'])
+            try:
+                with sqlite3.connect("SGE") as con:
+                    cur = con.cursor()
+                    cur.execute("INSERT INTO retroalimentacion (id_empleado,retroalimentacion,puntaje,nombre_generador,fecha_de_creacion) VALUES (?,?,?,?,?)",(int(id_usuario),retroalimentacion,puntaje,nombre,fecha)).fetchone()
+                    con.commit()
+            except Exception:
+                print(Exception.args[0])
+                con.rollback()
+                return redirect('/lista-empleados')
+        return redirect('/lista-empleados')
+    else:
+        return redirect("/")
 
 @app.route('/editar_empleado/<int:id_usuario>', methods = ["POST"])
 def editar_empleado (id_usuario):

@@ -19,11 +19,22 @@
                 <th>Retroalimentación</th>
                 <th>Opciones</th>
             </tr>
+           
+            {% for key, usuario in baseDatos.items() %}
+         
             <tr>
-                <td>Retroalimentacion #1</td>
-                <td><a class="far fa-eye retro"></a></td>
+                <td>{{ usuario["cedula"] }}</td>
+                <td>{{ usuario["cargo"] }}</td>
+                <td>{{ usuario["nombre"] }}</td>
+                <td>{{ usuario["apellido"] }}</td>
+                <td>
+                    <button class="far fa-eye retro"></button>
+                    
+                </td>
             </tr>
-        </table>
+    
+            {% endfor %}
+       
     </div>
    
     <section class="modal-retro">
