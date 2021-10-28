@@ -48,6 +48,24 @@ function CargarInfoEmpleado(User) {
     
 }
 
+function CargarInfoEmpleadoEditar(User, key){
+    let nombre =document.getElementById('EditarNombre').value = User['nombre'];
+    let apellido =document.getElementById('EditarApellido').value = User['apellido']; 
+    let Cedula =document.getElementById('EditarCedula').value=User["cedula"]; 
+    let usuario =document.getElementById('EditarUsuario').value=User["usuario"]; 
+    let pass =document.getElementById('editarcontraseña'); 
+    let fecha1=document.getElementById('editarfechaingreso');
+    let fecha2=document.getElementById('editarfechasalida');
+    let salario=document.getElementById('editar-salario').value=User["salario"];
+    let dependencia=document.getElementById('editar-dependencia').value=User["dependencia"];
+
+    var formulario = document.getElementById('FormularioEditarEmpleado');
+    formulario.setAttribute('action','/editar_empleado/'+key.id);
+}
+
+
+
+
 function CargarRetro(User) {
     let Autor =document.getElementById('Autoramostrar').value = User["autor"];
     let fecha1=document.getElementById('fechamostrar').value=User["fecha"];
@@ -71,15 +89,5 @@ closeeditar.addEventListener('click',()=>{
     editarinfo.classList.remove('show-modal-retro');
 })
 
-function CargarInfoEmpleadoEditar(User, key){
-    let nombre =document.getElementById('EditarNombre').value = User['nombre'];
-    let apellido =document.getElementById('EditarApellido').value = User['apellido']; 
-    let Cedula =document.getElementById('EditarCedula'); 
-    let usuario =document.getElementById('EditarUsuario'); 
-    let pass =document.getElementById('crear-contraseña'); 
 
-    
-    var formulario = document.getElementById('FormularioEditarEmpleado');
-    formulario.setAttribute('action','/editar_empleado/'+key.id);
-}
 ////////////////////////////////////////////////////////////////////////////////
