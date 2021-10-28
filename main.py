@@ -166,15 +166,15 @@ def crear_empleado ():
     dependencia= request.form['crear-dependencia']
     global valorId 
     global baseDatos
-    if Rol == 'empleado':
-        Rol2 = 1
-        subId = 'e'+ str(valorId)
-    elif Rol == 'administrador':
+   
+    if Rol == 'Administrador':
         Rol2= 2
-        subId = 'a'+ str(valorId)
+       
+    elif Rol== 'SuperAdministrador':
+         Rol2 = 3   
     else:
-        Rol2 = 3   
-        subId = 's'+ str(valorId)
+        Rol2 = 1   
+        
     
     # conexion a la base de datos ( por terminar) 
     try:
@@ -341,14 +341,15 @@ def editar_empleado (id_usuario):
         Salario= request.form['editar-salario']
         dependencia= request.form['editar-dependencia']
 
-        if Rol == 'empleado':
-            Rol2 = 1
-            
-        elif Rol == 'administrador':
+        
+    
+        if Rol == 'Administrador':
             Rol2= 2
-            
-        else:
+        
+        elif Rol== 'SuperAdministrador':
             Rol2 = 3   
+        else:
+            Rol2 = 1    
             
        # try:
         with sqlite3.connect("SGE") as con:#conectarse a la base de dto oficial
