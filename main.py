@@ -212,7 +212,7 @@ def listarEmpleados():
         with sqlite3.connect("SGE") as con:
                     #con.row_factory=sqlite3.Row
                     cur= con.cursor()
-                    print(id_user)
+                   
                     if tipo_user==2:
                         cur.execute("select * from empleado where cedula!=? and rol_id=1",[id_user])
                         lista=cur.fetchall()
