@@ -97,7 +97,7 @@ body .formulario form  #btnIniciarSesion{
     border: 0px;
     font-size: 1rem;
     font-weight: bold;
-    margin-top: 90px;
+    margin-top: 50px;
     border-radius: 5px;
     cursor: pointer;
     background-color: #014283;
@@ -109,5 +109,11 @@ body .formulario form  #btnIniciarSesion:hover{
     background-color: #003972;
     transition-duration: 0.5s;
 
+}
+.mensaje{
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    color: rgb(151, 2, 2);
 }
 

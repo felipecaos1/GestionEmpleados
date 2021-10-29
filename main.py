@@ -12,17 +12,20 @@ id_user = ''
 nombre = ''
 valorId = 6
 session=False #verifica si esta loguiado
+clavemala=""
 #1:empleado
 #2:administrador
 #3:Superadminstrador
 
 @app.route('/',methods = ["GET","POST"])
 def login():
-    return render_template("Login.html")
+    global clavemala
+
+    return render_template("Login.html",mensaje=clavemala)
 
 @app.route('/ingreso', methods = ["POST"]) #aca se valida el usuario
 def ingreso():
-    global tipo_user,id_user, nombre, session
+    global tipo_user,id_user, nombre, session,clavemala
     
     if request.method=="GET":
          return render_template("Login.html")
@@ -43,11 +46,19 @@ def ingreso():
                         nombre=registro2[1]
                         tipo_user=registro2[5]
                         id_user=registro2[0]
+                        clavemala=""
                         return redirect('/administrador')   
+                    else:
+                        clavemala="Usuario o Clave incorrecta"
+                else:
+                    clavemala="Usuario o Clave incorrecta"
+
         except:
             con.rollback()
-    
+
     return redirect('/')
+    
+    
    
 
 # @app.route('/administrador/<int:id_usuario>/',methods = ["GET"])
